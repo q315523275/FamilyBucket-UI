@@ -1,0 +1,93 @@
+@import './variables.scss';
+@import './mixin.scss';
+@import './transition.scss';
+@import './element-ui.scss';
+@import './sidebar.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #app, .wrapper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+div:focus {
+  outline: none;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+a,
+a:focus,
+a:hover {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
+
+.clearfix {
+  &:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+  }
+}
+
+//main-container全局样式
+.app-main {
+  transition: margin-left 0.28s;
+  top: 84px;
+  background: none repeat scroll 0 0 #fff;
+  position: absolute;
+  left: 180px;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  box-sizing: border-box;
+  overflow-y: auto;
+  padding: 10px 15px 0;
+}
+
+.hideSidebar {
+  .app-main {
+    left: 36px;
+    transition: left 0.28s;
+  }
+}
+
+.no-tags {
+  .app-main {
+    top: 50px;
+  }
+}
+
+.app-container {
+  padding: 20px;
+}
