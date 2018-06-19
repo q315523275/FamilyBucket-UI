@@ -1,23 +1,37 @@
 <template>
-  <el-dialog :title="btnName" :visible.sync="show" :close-on-click-modal="false" width="50%">
+  <el-dialog :title="btnName" :visible.sync="show" :close-on-click-modal="false" width="50%" style="padding-right:24px;">
     <el-form :model="modelForm" :rules="rules" ref="modelForm" label-width="120px" v-if="modelForm"
              v-loading="loading">
-      <el-form-item label="项目名称" prop="Name">
-        <el-input v-model="modelForm.Name"></el-input>
-      </el-form-item>
-      <el-form-item label="归属项目组" prop="AppId">
-        <el-select v-model='modelForm.AppId' placeholder='请选择'>
-          <el-option v-for='item in appList' :key='item.AppId' :label='item.Name' :value='item.AppId'></el-option>
+      <el-form-item label="所属项目" prop="ProjectName">
+        <el-select v-model='modelForm.ProjectName' placeholder='请选择项目' @change='BLL.searchApiList()'>
+          <el-option v-for='item in projectList' :key='item.Key' :label='item.Name' :value='item.Key'></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="是否公有" prop="IsPublic">
-        <el-switch v-model="modelForm.IsPublic"></el-switch>
+      <el-form-item label="角色名称" prop="Name">
+        <el-input v-model="modelForm.Name"></el-input>
       </el-form-item>
-      <el-form-item label="备注" prop="Comment">
-        <el-input type="textarea" v-model="modelForm.Comment"></el-input>
+      <el-form-item label="角色标识" prop="Key">
+        <el-input v-model="modelForm.Key"></el-input>
       </el-form-item>
-      <el-form-item label="是否删除" prop="IsDeleted">
-        <el-switch v-model="modelForm.IsDeleted"></el-switch>
+      <el-form-item label="菜单权限" v-if="menusList">
+        <el-tree
+          :data="menusList"
+          show-checkbox
+          node-key="id"
+          ref="menusTree"
+          highlight-current
+          :props="defaultProps">
+        </el-tree>
+      </el-form-item>
+      <el-form-item label="接口权限" v-if="apiList">
+         <el-tree
+          :data="apiList"
+          show-checkbox
+          node-key="id"
+          ref="apiTree"
+          highlight-current
+          :props="defaultProps">
+        </el-tree>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="handleSubmit">{{btnName}}</el-button>
@@ -38,21 +52,33 @@ export default {
     modelForm: {
       type: Object
     },
-    appList: {
+    menusList: {
+      type: Array
+    },
+    apiList: {
+      type: Array
+    },
+    projectList: {
       type: Array
     }
   },
   data () {
     return {
-      data: [],
+      defaultProps: {
+        children: 'children',
+        label: 'label'
+      },
       show: false,
       btnName: '新建',
       rules: {
-        Name: [
-          { required: true, message: '请输入项目名称', trigger: 'blur' }
+        ProjectName: [
+          { required: true, message: '请选择所属项目', trigger: 'blur' }
         ],
-        AppId: [
-          { required: true, message: '请选择项目组', trigger: 'blur' }
+        Name: [
+          { required: true, message: '请输入角色名称', trigger: 'blur' }
+        ],
+        Key: [
+          { required: true, message: '请输入角色标识', trigger: 'blur' }
         ]
       }
     }
@@ -62,6 +88,8 @@ export default {
     this.BLL = new BLL(this)
     if (this.value) {
       this.show = true
+      this.BLL.searchApiList()
+      this.BLL.editInit()
     }
   },
   computed: {
@@ -83,8 +111,7 @@ export default {
       this.$emit('input', val)
       if (val) {
         this.$nextTick(() => {
-          const data = []
-          this.data = data
+          this.BLL.editInit()
           if (this.modelForm.Id) {
             this.btnName = '编辑'
           } else {

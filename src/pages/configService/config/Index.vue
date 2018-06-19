@@ -18,7 +18,7 @@
     </el-form>
     <iTable :tableData='dataList' :columns='columns' :loading='loading' :pageSize=20 ref='iTable'
             :otherHeight='230' :operateColumn='operateColumn'></iTable>
-    <edit v-model='showEdit' :modelForm='editModel' @addSuccess='BLL.search()'></edit>
+    <edit v-model='showEdit' :modelForm='editModel' :appList='appList' @addSuccess='BLL.search()'></edit>
   </div>
 </template>
 

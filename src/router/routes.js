@@ -24,12 +24,12 @@ export default [
         component: NotPermission,
         meta: { title: '401' }
       },
-      {
-        path: '/setpassword',
-        name: '修改密码',
-        component: view('SetPassword/Index'),
-        meta: { title: '修改密码' }
-      },
+      //      {
+      //        path: '/setpassword',
+      //        name: '修改密码',
+      //        component: view('SetPassword/Index'),
+      //        meta: { title: '修改密码' }
+      //      },
       {
         path: '/dashboard',
         name: '首页',
@@ -101,6 +101,12 @@ export default [
         name: 'role',
         component: view('setting/role/Index'),
         meta: { title: '角色设置' }
+      },
+      {
+        path: 'user',
+        name: 'user',
+        component: view('setting/user/Index'),
+        meta: { title: '用户设置' }
       }
     ]
   }

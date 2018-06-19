@@ -19,6 +19,15 @@ export default {
   SetPlatformMenu (body, op = {}) {
     return Vue.$api.xHttp.post(`/Platform/Menu/SetPlatform`, body, op)
   },
+  // 获取接口列表
+  QueryApiList (param, op = {}) {
+    param = (param ? '?' + param : '')
+    return Vue.$api.xHttp.get(`/Platform/Api/QueryApiList` + param, op)
+  },
+  // 设置接口信息
+  SetApiInfo (body, op = {}) {
+    return Vue.$api.xHttp.post(`/Platform/Api/SetApi`, body, op)
+  },
   // 查询项目列表
   QueryProjectList (op = {}) {
     return Vue.$api.xHttp.get(`/Platform/Project/QueryProject`, op)
@@ -29,19 +38,25 @@ export default {
     return Vue.$api.xHttp.get(`/Platform/Role/QueryAllRoles` + param, op)
   },
   // 设置角色
+  QueryRoleInfo (param, op = {}) {
+    param = (param ? '?' + param : '')
+    return Vue.$api.xHttp.get(`/Platform/Role/QueryRoleInfo` + param, op)
+  },
+  // 设置角色
   SetRoleInfo (body, op = {}) {
     return Vue.$api.xHttp.post(`/Platform/Role/SetRole`, body, op)
   },
-  // 设置角色对应导航
-  SetRoleMenu (body, op = {}) {
-    return Vue.$api.xHttp.post(`/Platform/Role/SetRoleMenu`, body, op)
+  // 查询用户列表
+  QueryUserList (param, op = {}) {
+    param = (param ? '?' + param : '')
+    return Vue.$api.xHttp.get(`/Platform/User/QueryUsers` + param, op)
   },
-  // 设置角色对应接口
-  SetRoleApi (body, op = {}) {
-    return Vue.$api.xHttp.post(`/Platform/Role/SetRoleApi`, body, op)
+  // 设置用户
+  SetUserInfo (body, op = {}) {
+    return Vue.$api.xHttp.post(`/Platform/User/SetUser`, body, op)
   },
-  // 获取角色对应菜单
-  GetRoleNavList (body, op = {}) {
-    return Vue.$api.xHttp.post(`/sameOriginApi/auths/Role/GetRoleNavList`, body, op)
+  // 设置密码
+  SetPassword (body, op = {}) {
+    return Vue.$api.xHttp.post(`/sameOriginApi/auths/User/SetPassword`, body, op)
   }
 }

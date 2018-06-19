@@ -3,7 +3,7 @@
     <el-form :model="modelForm" :rules="rules" ref="modelForm" label-width="120px" v-if="modelForm"
              v-loading="loading">
       <el-form-item label="归属项目组" prop="ConfigAppId">
-        <el-select v-model='modelForm.ConfigAppId' placeholder='请选择' @change='BLL.searchProejct()'>
+        <el-select v-model='modelForm.ConfigAppId' placeholder='请选择' @change='searchNamespace()'>
           <el-option v-for='item in appList' :key='item.AppId' :label='item.Name' :value='item.AppId'></el-option>
         </el-select>
       </el-form-item>
@@ -42,13 +42,18 @@ export default {
     },
     modelForm: {
       type: Object
+    },
+    appList: {
+      type: Array
     }
   },
   data () {
     return {
       data: [],
-      appList: [],
       nameSpaceList: [],
+      filters: {
+        AppId: null
+      },
       show: false,
       btnName: '新建',
       rules: {
@@ -73,7 +78,6 @@ export default {
     if (this.value) {
       this.show = true
     }
-    this.BLL.init()
   },
   computed: {
     loading () {
@@ -87,6 +91,10 @@ export default {
     },
     handleSubmit (ev) {
       this.BLL.editSubmit(ev)
+    },
+    searchNamespace () {
+      this.filters.AppId = this.modelForm.ConfigAppId
+      this.BLL.searchProejct()
     }
   },
   watch: {
@@ -104,6 +112,7 @@ export default {
         })
       } else {
         this.$refs.modelForm.clearValidate()
+        this.nameSpaceList = []
       }
     },
     value (val) {
