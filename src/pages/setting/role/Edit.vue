@@ -23,12 +23,13 @@
           :props="defaultProps">
         </el-tree>
       </el-form-item>
-      <el-form-item label="接口权限" v-if="apiList">
+      <el-form-item label="接口权限" v-if="apiTreeList">
          <el-tree
-          :data="apiList"
+          :data="apiTreeList"
           show-checkbox
           node-key="id"
           ref="apiTree"
+          :default-checked-keys="apiTreeCheck"
           highlight-current
           :props="defaultProps">
         </el-tree>
@@ -55,9 +56,6 @@ export default {
     menusList: {
       type: Array
     },
-    apiList: {
-      type: Array
-    },
     projectList: {
       type: Array
     }
@@ -68,6 +66,8 @@ export default {
         children: 'children',
         label: 'label'
       },
+      apiTreeList: [],
+      apiTreeCheck: [],
       show: false,
       btnName: '新建',
       rules: {

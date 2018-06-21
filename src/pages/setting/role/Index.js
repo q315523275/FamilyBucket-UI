@@ -62,6 +62,8 @@ export default class extends Base {
 
   async editInit () {
     if (this.vm.modelForm.Id) {
+      // 初始化接口权限列表
+      this.searchApiList()
       // 获取角色对应菜单
       const params = this.vm.$utils.Common.parseParam({ RoleId: this.vm.modelForm.Id }).substr(1)
       const res = await api.QueryRoleInfo(params, { load: false })
@@ -75,15 +77,21 @@ export default class extends Base {
         this.vm.$refs.menusTree.setCheckedNodes(menus.map(x => {
           return { id: x.MenuId }
         }))
+        // 接口初始化check
+        let apiCheck = []
+        res.Data.ApiList.forEach(x => {
+          apiCheck.push(x.ApiId)
+        })
+        this.vm.apiTreeCheck = apiCheck
       }
     }
   }
 
-  searchApiList () {
+  async searchApiList () {
     if (this.vm.modelForm.ProjectName) {
       const filter = { ProjectKey: this.vm.modelForm.ProjectName, PageSize: 1000 }
       const params = this.vm.$utils.Common.parseParam(filter).substr(1)
-      const res = api.QueryApiList(params, { load: false })
+      const res = await api.QueryApiList(params, { load: false })
       if (res) {
         let apilist = []
         res.Data.forEach(x => {
@@ -93,8 +101,7 @@ export default class extends Base {
             children: []
           })
         })
-        this.vm.apiList = apilist
-        console.log(this.vm.apilist)
+        this.vm.apiTreeList = apilist
       }
     }
   }
@@ -103,7 +110,23 @@ export default class extends Base {
     this.vm.$refs.modelForm.validate(async (valid) => {
       if (valid) {
         const op = { loadID: 'edit' }
-        const res = await api.SetPlatformInfo(this.vm.modelForm, op)
+        // 选中菜单
+        let allNavs = []
+        this.vm.$refs.menusTree.getCheckedNodes(false).forEach(x => {
+          allNavs.push(x.id)
+          if (x.parent) {
+            if (!allNavs.includes(x.parent)) {
+              allNavs.push(x.parent)
+            }
+          }
+        })
+        // 选中接口
+        let allApi = this.vm.$refs.apiTree.getCheckedKeys()
+        let res = await api.SetRoleInfo({
+          ...this.vm.modelForm,
+          MenuIdList: allNavs.filter(x => !isNaN(x)),
+          ApiIdList: allApi
+        }, op)
         if (res) {
           this.vm.show = false
           this.vm.$emit('addSuccess')

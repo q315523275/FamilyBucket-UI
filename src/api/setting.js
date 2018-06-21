@@ -37,6 +37,11 @@ export default {
     param = (param ? '?' + param : '')
     return Vue.$api.xHttp.get(`/Platform/Role/QueryAllRoles` + param, op)
   },
+  // 获取可用角色列表
+  QueryRoles (param, op = {}) {
+    param = (param ? '?' + param : '')
+    return Vue.$api.xHttp.get(`/Platform/Role/QueryRoles` + param, op)
+  },
   // 设置角色
   QueryRoleInfo (param, op = {}) {
     param = (param ? '?' + param : '')

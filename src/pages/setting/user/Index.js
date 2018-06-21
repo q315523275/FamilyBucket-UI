@@ -11,6 +11,15 @@ export default class extends Base {
     }
   }
 
+  async editInit () {
+    const res = await api.QueryRoles('', { load: false })
+    if (res) {
+      res.Data.forEach(x => {
+        this.vm.roleList.push({ Id: x.Id, Name: x.ProjectName + '/' + x.Name })
+      })
+    }
+  }
+
   add () {
     this.vm.editModel = {
       Name: null,
@@ -29,7 +38,7 @@ export default class extends Base {
     this.vm.$refs.modelForm.validate(async (valid) => {
       if (valid) {
         const op = { loadID: 'edit' }
-        const res = await api.SetPlatformInfo(this.vm.modelForm, op)
+        const res = await api.SetUserInfo(this.vm.modelForm, op)
         if (res) {
           this.vm.show = false
           this.vm.$emit('addSuccess')

@@ -25,14 +25,16 @@
     </el-form>
     <iTable :tableData="dataList" :columns="columns" :loading="loading" :pageSize=pageSize
             :operateColumn="operateColumn" ref="iTable" :otherHeight="230"></iTable>
+    <edit v-model="showEdit" :modelForm="editModel" :roleList="roleList" @addSuccess="BLL.search()"></edit>
   </div>
 </template>
 <script type="text/jsx">
 import iTable from '../../../components/iTable.vue'
+import Edit from './Edit.vue'
 import BLL from './Index'
 export default {
   components: {
-    iTable
+    iTable, Edit
   },
   data () {
     return {
@@ -41,7 +43,7 @@ export default {
       showEdit: false,
       sort: {},
       dataList: [],
-      roleList: null,
+      roleList: [],
       currRoleValue: null,
       props: {
         value: 'value',
@@ -129,6 +131,7 @@ export default {
     // 初始化
     this.BLL = new BLL(this)
     this.BLL.search()
+    this.BLL.editInit()
   },
   mounted () {},
   beforeDestroy () {},

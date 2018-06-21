@@ -93,7 +93,7 @@ export default [
       {
         path: 'apimanage',
         name: 'apimanage',
-        component: view('setting/project/ApiManage'),
+        component: view('setting/api/Index'),
         meta: { title: '项目资源' }
       },
       {
