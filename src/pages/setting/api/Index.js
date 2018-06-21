@@ -16,4 +16,34 @@ export default class extends Base {
       this.vm.dataList = res.Data
     }
   }
+  add () {
+    this.vm.editModel = {
+      ProjectName: null,
+      Message: null,
+      Url: null,
+      Method: 'GET',
+      Disabled: false,
+      AllowScope: null
+    }
+    this.vm.showEdit = true
+  }
+  editSubmit () {
+    this.vm.$refs.modelForm.validate(async (valid) => {
+      if (valid) {
+        const op = { loadID: 'edit' }
+        const res = await api.SetApiInfo(this.vm.modelForm, op)
+        if (res) {
+          this.vm.show = false
+          this.vm.$emit('addSuccess')
+          this.vm.$notify({
+            title: '成功',
+            message: '操作成功',
+            type: 'success'
+          })
+        }
+      } else {
+        return false
+      }
+    })
+  }
 }

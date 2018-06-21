@@ -120,6 +120,8 @@ export default {
         })
       } else {
         this.$refs.modelForm.clearValidate()
+        this.$refs.apiTreeList.setCheckedKeys([])
+        this.$refs.menusTree.setCheckedKeys([])
       }
     },
     value (val) {

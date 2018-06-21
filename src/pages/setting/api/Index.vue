@@ -15,15 +15,17 @@
     </el-form>
     <iTable :tableData="dataList" :columns="columns" :loading="loading" :pageSize=20 ref="iTable"
             :otherHeight="230" :operateColumn="operateColumn"></iTable>
+    <edit v-model="showEdit" :modelForm="editModel" :projectList="projectList" @addSuccess="BLL.search()"></edit>
   </div>
 </template>
 
 <script type='text/jsx'>
 import iTable from '../../../components/iTable.vue'
+import Edit from './Edit.vue'
 import BLL from './Index'
 
 export default {
-  components: { iTable },
+  components: { iTable, Edit },
   data () {
     return {
       editModel: null,
@@ -37,13 +39,11 @@ export default {
         {
           prop: 'Id',
           label: '编号',
-          width: 80,
           align: 'center'
         },
         {
           prop: 'ProjectName',
-          label: '项目',
-          width: 150
+          label: '项目'
         },
         {
           prop: 'Url',
@@ -57,13 +57,25 @@ export default {
         },
         {
           prop: 'ControllerName',
-          label: '控制器',
-          width: 130
+          label: '控制器'
         },
         {
-          prop: 'ActionName',
-          label: '执行方法',
-          width: 130
+          prop: 'Message',
+          label: '资源描述'
+        },
+        {
+          prop: 'AllowScope',
+          label: '访问范围',
+          render: (row, column) => {
+            switch (row.AllowScope) {
+              case 0:
+                return <el-tag>匿名</el-tag>
+              case 1:
+                return <el-tag>限定登陆</el-tag>
+              case 2:
+                return <el-tag>限定角色</el-tag>
+            }
+          }
         },
         {
           prop: 'CreateTime',

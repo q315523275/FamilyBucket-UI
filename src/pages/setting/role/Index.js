@@ -95,11 +95,13 @@ export default class extends Base {
       if (res) {
         let apilist = []
         res.Data.forEach(x => {
-          apilist.push({
-            label: x.ProjectName + '/' + x.ControllerName + '/' + x.ActionName,
-            id: x.Id,
-            children: []
-          })
+          if (x.AllowScope === 2) {
+            apilist.push({
+              label: x.ProjectName + '/' + x.ControllerName + '/' + x.Message,
+              id: x.Id,
+              children: []
+            })
+          }
         })
         this.vm.apiTreeList = apilist
       }
