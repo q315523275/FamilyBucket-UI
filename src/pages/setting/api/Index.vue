@@ -32,7 +32,7 @@ export default {
       showEdit: false,
       projectList: [],
       filters: {
-        ProjectKey: null
+        ProjectKey: ''
       },
       dataList: [],
       columns: [

@@ -2,16 +2,34 @@
   <el-dialog :title="btnName" :visible.sync="show" :close-on-click-modal="false" width="50%" style="padding-right:24px;">
     <el-form :model="modelForm" :rules="rules" ref="modelForm" label-width="120px" v-if="modelForm"
              v-loading="loading">
-      <el-form-item label="所属项目" prop="ProjectName">
-        <el-select v-model='modelForm.ProjectName' placeholder='请选择项目' @change='BLL.searchApiList()'>
-          <el-option v-for='item in projectList' :key='item.Key' :label='item.Name' :value='item.Key'></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="角色名称" prop="Name">
-        <el-input v-model="modelForm.Name"></el-input>
-      </el-form-item>
-      <el-form-item label="角色标识" prop="Key">
-        <el-input v-model="modelForm.Key"></el-input>
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="所属项目" prop="ProjectName">
+            <el-select v-model='modelForm.ProjectName' placeholder='请选择项目' @change='BLL.searchApiList()'>
+              <el-option v-for='item in projectList' :key='item.Key' :label='item.Name' :value='item.Key'></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="是否禁用" prop="IsDel">
+            <el-switch active-text="禁用" active-color="#F56C6C" inactive-color="#F2F6FC" v-model="modelForm.IsDel"></el-switch>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="角色名称" prop="Name">
+            <el-input v-model="modelForm.Name"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="角色标识" prop="Key">
+            <el-input v-model="modelForm.Key"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-form-item label="备注" prop="Remark">
+        <el-input type="textarea" v-model="modelForm.Remark"></el-input>
       </el-form-item>
       <el-form-item label="菜单权限" v-if="menusList">
         <el-tree
@@ -120,7 +138,7 @@ export default {
         })
       } else {
         this.$refs.modelForm.clearValidate()
-        this.$refs.apiTreeList.setCheckedKeys([])
+        this.$refs.apiTree.setCheckedKeys([])
         this.$refs.menusTree.setCheckedKeys([])
       }
     },

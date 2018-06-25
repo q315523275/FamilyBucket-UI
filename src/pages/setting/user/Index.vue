@@ -65,6 +65,9 @@ export default {
           prop: 'Mobile', label: '手机号', width: '160', type: ''
         },
         {
+          prop: 'Email', label: '邮箱', width: '160', type: ''
+        },
+        {
           prop: 'State',
           label: '账户状态',
           width: '160',
@@ -75,22 +78,10 @@ export default {
           }
         },
         {
-          prop: 'CreateTime',
-          label: '添加时间',
-          width: '160',
-          type: '',
-          render: (row, column) => {
-            return <span>{ this.$utils.Date.format(parseInt(row.CreateTime / 1000)) }</span>
-          }
-        },
-        {
           prop: 'UpdateTime',
           label: '更新时间',
           width: '160',
-          type: '',
-          render: (row, column) => {
-            return <span>{ this.$utils.Date.format(parseInt(row.UpdateTime / 1000)) }</span>
-          }
+          type: ''
         }
       ], // 数据列
       operateColumn: {

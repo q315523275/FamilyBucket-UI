@@ -43,8 +43,7 @@ export default class extends Base {
 
   async search () {
     const filter = this.vm.filters
-    const params = this.vm.$utils.Common.parseParam(filter).substr(1)
-    const res = await api.QueryAllRoles(params)
+    const res = await api.QueryAllRoles(filter)
     if (res) {
       this.vm.dataList = res.Data
     }
@@ -52,21 +51,19 @@ export default class extends Base {
 
   add () {
     this.vm.editModel = {
-      ProjectName: null,
-      Name: null,
-      Key: null,
-      Remark: null
+      RealName: null,
+      UserName: null,
+      Mobile: null,
+      Email: null,
+      State: 0
     }
     this.vm.showEdit = true
   }
 
   async editInit () {
     if (this.vm.modelForm.Id) {
-      // 初始化接口权限列表
-      this.searchApiList()
       // 获取角色对应菜单
-      const params = this.vm.$utils.Common.parseParam({ RoleId: this.vm.modelForm.Id }).substr(1)
-      const res = await api.QueryRoleInfo(params, { load: false })
+      const res = await api.QueryRoleInfo({ RoleId: this.vm.modelForm.Id }, { load: false })
       if (res) {
         // 排除1级菜单
         let menus = res.Data.MenuList.filter(x => {
@@ -84,20 +81,22 @@ export default class extends Base {
         })
         this.vm.apiTreeCheck = apiCheck
       }
+      // 初始化接口权限列表
+      this.searchApiList()
     }
   }
 
   async searchApiList () {
     if (this.vm.modelForm.ProjectName) {
       const filter = { ProjectKey: this.vm.modelForm.ProjectName, PageSize: 1000 }
-      const params = this.vm.$utils.Common.parseParam(filter).substr(1)
-      const res = await api.QueryApiList(params, { load: false })
+      const res = await api.QueryApiList(filter, { load: false })
       if (res) {
         let apilist = []
         res.Data.forEach(x => {
+          // 2只显示需要验证权限的接口信息
           if (x.AllowScope === 2) {
             apilist.push({
-              label: x.ProjectName + '/' + x.ControllerName + '/' + x.Message,
+              label: x.ProjectName + '/' + x.Controller + '/' + x.Message,
               id: x.Id,
               children: []
             })

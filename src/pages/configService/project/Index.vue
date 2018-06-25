@@ -3,6 +3,7 @@
     <el-form :inline='true' :model='filters'>
       <el-form-item>
         <el-select v-model='filters.AppId' placeholder='请选择'>
+          <el-option value='' key='' label='全部项目组'></el-option>
           <el-option v-for='item in appList' :key='item.AppId' :label='item.Name' :value='item.AppId'></el-option>
         </el-select>
       </el-form-item>
@@ -30,7 +31,7 @@ export default {
       showEdit: false,
       appList: [],
       filters: {
-        AppId: null
+        AppId: ''
       },
       dataList: [],
       columns: [

@@ -109,5 +109,26 @@ export default [
         meta: { title: '用户设置' }
       }
     ]
+  },
+  {
+    path: '/microservice',
+    name: '微服务管理',
+    redirect: 'noredirect',
+    component: resolve => require(['../layout/Layout'], resolve),
+    meta: { icon: 'el-icon-document' },
+    children: [
+      {
+        path: 'service',
+        name: 'service',
+        component: view('microservice/service/Index'),
+        meta: { title: '服务发现' }
+      },
+      {
+        path: 'route',
+        name: 'route',
+        component: view('microservice/route/Index'),
+        meta: { title: '路由管理' }
+      }
+    ]
   }
 ]

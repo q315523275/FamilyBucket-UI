@@ -12,8 +12,8 @@ export default {
   },
   // 获取导航列表
   QueryAllMenus (param, op = {}) {
-    param = (param ? '?' + param : '')
-    return Vue.$api.xHttp.get(`/Platform/Menu/QueryAllMenus` + param, op)
+    var qs = require('qs')
+    return Vue.$api.xHttp.get(`/Platform/Menu/QueryAllMenus?` + qs.stringify(param), op)
   },
   // 设置导航
   SetPlatformMenu (body, op = {}) {
@@ -21,8 +21,8 @@ export default {
   },
   // 获取接口列表
   QueryApiList (param, op = {}) {
-    param = (param ? '?' + param : '')
-    return Vue.$api.xHttp.get(`/Platform/Api/QueryApiList` + param, op)
+    var qs = require('qs')
+    return Vue.$api.xHttp.get(`/Platform/Api/QueryApiList?` + qs.stringify(param), op)
   },
   // 设置接口信息
   SetApiInfo (body, op = {}) {
@@ -34,18 +34,18 @@ export default {
   },
   // 获取角色列表
   QueryAllRoles (param, op = {}) {
-    param = (param ? '?' + param : '')
-    return Vue.$api.xHttp.get(`/Platform/Role/QueryAllRoles` + param, op)
+    var qs = require('qs')
+    return Vue.$api.xHttp.get(`/Platform/Role/QueryAllRoles?` + qs.stringify(param), op)
   },
   // 获取可用角色列表
   QueryRoles (param, op = {}) {
-    param = (param ? '?' + param : '')
-    return Vue.$api.xHttp.get(`/Platform/Role/QueryRoles` + param, op)
+    var qs = require('qs')
+    return Vue.$api.xHttp.get(`/Platform/Role/QueryRoles?` + qs.stringify(param), op)
   },
   // 设置角色
   QueryRoleInfo (param, op = {}) {
-    param = (param ? '?' + param : '')
-    return Vue.$api.xHttp.get(`/Platform/Role/QueryRoleInfo` + param, op)
+    var qs = require('qs')
+    return Vue.$api.xHttp.get(`/Platform/Role/QueryRoleInfo?` + qs.stringify(param), op)
   },
   // 设置角色
   SetRoleInfo (body, op = {}) {
@@ -53,8 +53,8 @@ export default {
   },
   // 查询用户列表
   QueryUserList (param, op = {}) {
-    param = (param ? '?' + param : '')
-    return Vue.$api.xHttp.get(`/Platform/User/QueryUsers` + param, op)
+    var qs = require('qs')
+    return Vue.$api.xHttp.get(`/Platform/User/QueryUsers?` + qs.stringify(param), op)
   },
   // 设置用户
   SetUserInfo (body, op = {}) {

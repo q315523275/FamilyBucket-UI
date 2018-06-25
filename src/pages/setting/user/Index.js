@@ -4,8 +4,7 @@ import Base from '../../Base/index'
 export default class extends Base {
   async search () {
     const filter = this.vm.filters
-    const params = this.vm.$utils.Common.parseParam(filter).substr(1)
-    const res = await api.QueryUserList(params)
+    const res = await api.QueryUserList(filter)
     if (res) {
       this.vm.dataList = res.Data
     }

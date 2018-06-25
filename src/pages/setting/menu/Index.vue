@@ -3,7 +3,7 @@
     <el-form :inline='true' :model='filters'>
       <el-form-item>
         <el-select v-model='filters.PlatformId' placeholder='请选择'>
-          <el-option value='0' key='0' label='全部平台'></el-option>
+          <el-option :value=0 key='0' label='全部平台'></el-option>
           <el-option v-for='item in platformList' :key='item.Id' :label='item.Name' :value='item.Id'></el-option>
         </el-select>
       </el-form-item>
@@ -31,7 +31,7 @@ export default {
       showEdit: false,
       platformList: [],
       filters: {
-        PlatformId: null
+        PlatformId: 0
       },
       dataList: [],
       pageSize: 20, // 每页数量

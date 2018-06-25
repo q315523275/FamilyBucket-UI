@@ -27,13 +27,17 @@ function requestUrl (url) {
   //  }
   // }
   // 接口跨域
-  const baseApi = config.dev.baseApi[process.env.NODE_ENV]
-  return baseApi + url
-  // return url
+  if (url.startsWith('http')) {
+    return url
+  } else {
+    const baseApi = config.dev.baseApi[process.env.NODE_ENV]
+    return baseApi + url
+  }
 }
 
 function send (url, method, body, options, load, loadMsg, loadID, validator, delay, defFail, defEx) {
   const opts = { ...options }
+  // debugger
   // 生成请求url
   url = requestUrl(url)
   if (load) {
@@ -56,6 +60,7 @@ function send (url, method, body, options, load, loadMsg, loadID, validator, del
     if (load) {
       window.$globalHub.$store.commit('UPDATE_BTNLOADINGSTR', null)
     }
+    // debugger
     // 验证接口结果
     if (validator(obj)) {
       return obj
@@ -70,7 +75,7 @@ function send (url, method, body, options, load, loadMsg, loadID, validator, del
     }
   }).catch(error => {
     let errorMsg = ''
-    let stateCode = error.request.status
+    let stateCode = -1
     try {
       if (error.response) {
         errorMsg = JSON.stringify(error.response)
@@ -79,6 +84,7 @@ function send (url, method, body, options, load, loadMsg, loadID, validator, del
       } else {
         errorMsg = JSON.stringify(error.message)
       }
+      stateCode = error.request.status
     } catch (e) {
     }
     if (load) {

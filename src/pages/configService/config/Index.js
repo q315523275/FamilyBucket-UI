@@ -24,8 +24,7 @@ export default class extends Base {
 
   async search (body) {
     const filter = this.vm.filters
-    const params = this.vm.$utils.Common.parseParam(filter).substr(1)
-    const res = await api.QueryConfigList(params)
+    const res = await api.QueryConfigList(filter)
     if (res) {
       this.vm.dataList = res.Data
     }

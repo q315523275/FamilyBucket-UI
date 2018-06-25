@@ -31,7 +31,7 @@ export default {
       showEdit: false,
       projectList: [],
       filters: {
-        ProjectKey: null
+        ProjectKey: ''
       },
       apiList: [],
       menusList: [],
@@ -53,8 +53,20 @@ export default {
           label: '角色名称'
         },
         {
+          prop: 'Key',
+          label: '角色标识'
+        },
+        {
           prop: 'Remark',
           label: '描述'
+        },
+        {
+          prop: 'IsDel',
+          label: '状态',
+          align: 'center',
+          render: (row, column) => {
+            return row.IsDel ? <el-tag type="danger">禁用</el-tag> : <el-tag>启用</el-tag>
+          }
         },
         {
           prop: 'CreateTime',
