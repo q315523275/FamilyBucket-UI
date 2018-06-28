@@ -1,12 +1,16 @@
 <template>
   <div class='container'>
     <el-form :inline='true'>
+       <el-form-item>
+        <el-input placeholder="服务名称"></el-input>
+      </el-form-item>
       <el-form-item>
         <el-button type='primary' @click='BLL.search()'>查询</el-button>
+        <el-button type='primary'>新增服务</el-button>
       </el-form-item>
     </el-form>
     <iTable :tableData="dataList" :columns="columns" :loading="loading" :pageSize=200 ref="iTable"
-            :otherHeight="230"></iTable>
+            :otherHeight="230" :operateColumn="operateColumn"></iTable>
   </div>
 </template>
 
@@ -50,18 +54,25 @@ export default {
         }
       ],
       operateColumn: {
-        width: 110,
+        width: 120,
         fixed: 'right',
         list: [
           {
-            type: 'primary',
-            name: '编辑',
-            icon: 'edit',
+            type: 'danger',
+            name: '删除服务',
+            icon: 'delete',
             method: (index, row) => {
-              this.editModel = {
-                ...row
-              }
-              this.showEdit = true
+              let tit = '此操作将删除' + row.Id + '服务节点, 是否继续?'
+              this.$confirm(tit, '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+              }).then(() => {
+                this.$message({
+                  type: 'success',
+                  message: '删除成功!'
+                })
+              })
             },
             disabled: (index, row) => {}
           }
