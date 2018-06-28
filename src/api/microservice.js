@@ -7,5 +7,8 @@ export default {
   },
   QueryRouteList (url, op = {}) {
     return Vue.$api.xHttp.get(url, op)
+  },
+  EditRoute (url, body, op = {}) {
+    return Vue.$api.xHttp.post(url, body, op)
   }
 }

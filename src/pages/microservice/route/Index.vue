@@ -4,6 +4,7 @@
       <el-form-item>
         <el-button type='primary' @click='BLL.showAuth()'>Token与参数配置</el-button>
         <el-button type='primary' @click='BLL.search()'>查询</el-button>
+        <el-button type="primary" @click="BLL.add()">新增</el-button>
       </el-form-item>
     </el-form>
     <el-form :inline='true'>
@@ -20,7 +21,7 @@
     <iTable :tableData="dataList" :columns="columns" :loading="loading" :pageSize=200 ref="iTable"
             :otherHeight="230" :operateColumn="operateColumn"></iTable>
     <AuthToken v-model="showAuth" :modelForm="authModel" @addSuccess="BLL.search()"></AuthToken>
-    <edit v-model="showEdit" :modelForm="editModel" @addSuccess="BLL.search()"></edit>
+    <edit v-model="showEdit" :modelForm="editModel" :allModel="allData" :editIndex="editIndex" :authModel="authModel" @addSuccess="BLL.search()"></edit>
   </div>
 </template>
 
@@ -42,6 +43,8 @@ export default {
         SettingURL: '/administration/configuration'
       },
       showAuth: false,
+      editIndex: -1,
+      allData: {},
       dataList: [],
       columns: [
         {
@@ -90,6 +93,7 @@ export default {
               this.editModel = {
                 ...row
               }
+              this.editIndex = index
               this.showEdit = true
             },
             disabled: (index, row) => {}
