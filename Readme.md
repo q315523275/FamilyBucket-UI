@@ -25,3 +25,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 路由配置
 
 ![image](https://github.com/q315523275/FamilyBucket-UI/blob/master/readmeshow/route.png)
+
+服务管理
+
+![image](https://github.com/q315523275/FamilyBucket-UI/blob/master/readmeshow/mservice.png)
