@@ -93,13 +93,13 @@ export default class {
       }
     } else {
       this.vm.loginModel.imgCode = ''
-      // this.refreshImgCode()
+      this.refreshImgCode()
     }
   }
 
   // 获取图形验证码地址
   async GET_VERIFYIMAGE_URL (uid) {
     const res = await accountApi.getVerifyImageUrl(uid)
-    return res.Data.imgbase64
+    return res
   }
 }

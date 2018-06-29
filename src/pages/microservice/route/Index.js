@@ -107,20 +107,22 @@ export default class extends Base {
   editSubmit () {
     this.vm.$refs.modelForm.validate(async (valid) => {
       if (valid) {
-        if (this.vm.editIndex > -1) {
+        if (this.vm.editIndex === -1) {
+          this.vm.allModel.ReRoutes.push(this.vm.modelForm)
+        } else {
           this.vm.allModel.ReRoutes.splice(this.vm.editIndex, 1, this.vm.modelForm)
-          const op = { loadID: 'edit', options: { headers: { 'Authorization': this.vm.authModel.AccessToken } }, validator: (obj) => { return true }, defEx: false }
-          const url = this.vm.authModel.GatewayURL + this.vm.authModel.SettingURL
-          const res = await api.EditRoute(url, this.vm.allModel, op)
-          if (res) {
-            this.vm.show = false
-            this.vm.$emit('addSuccess')
-            this.vm.$notify({
-              title: '成功',
-              message: '操作成功',
-              type: 'success'
-            })
-          }
+        }
+        const op = { loadID: 'edit', options: { headers: { 'Authorization': this.vm.authModel.AccessToken } }, validator: (obj) => { return true }, defEx: false }
+        const url = this.vm.authModel.GatewayURL + this.vm.authModel.SettingURL
+        const res = await api.EditRoute(url, this.vm.allModel, op)
+        if (res) {
+          this.vm.show = false
+          this.vm.$emit('addSuccess')
+          this.vm.$notify({
+            title: '成功',
+            message: '操作成功',
+            type: 'success'
+          })
         }
       } else {
         return false

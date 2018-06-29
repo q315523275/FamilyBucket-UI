@@ -52,12 +52,12 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-form-item v-if="!modelForm.UseServiceDiscovery" v-for="(hostAndPort, index) in modelForm.DownstreamHostAndPorts" :label="'下游地址' + index" :key="hostAndPort.Host" :prop="'DownstreamHostAndPorts.' + index + '.Host'">
+          <el-form-item v-if="!modelForm.UseServiceDiscovery" v-for="(hostAndPort, index) in modelForm.DownstreamHostAndPorts" :label="'下游地址' + index" :key="index" :prop="'DownstreamHostAndPorts.' + index + '.Host'">
             <el-col :span="10">
-              <el-input v-model="hostAndPort.Host" placeholder="请输入地址" size="medium" style="border-radius: 2px 0 0 2px"></el-input>
+              <el-input v-model="hostAndPort.Host" placeholder="地址" size="medium"></el-input>
             </el-col>
             <el-col :span="6">
-              <el-input v-model="hostAndPort.Port" placeholder="请输入端口" size="medium" style="border-radius: 0 2px 2px 0; margin-left:10px"></el-input>
+              <el-input v-model="hostAndPort.Port" placeholder="端口" size="medium" style="margin-left:10px"></el-input>
             </el-col>
             <el-col :span="8" style='float:left'>
               <el-button @click.prevent="addHostAndPort()" size="medium" style="margin-left:15px">增加</el-button>
@@ -77,7 +77,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="请求标识" prop="RequestIdKey">
-                <el-switch v-model="modelForm.RequestIdKey"></el-switch>
+                <el-input v-model="modelForm.RequestIdKey"></el-input>
               </el-form-item>
             </el-col>
           </el-row>

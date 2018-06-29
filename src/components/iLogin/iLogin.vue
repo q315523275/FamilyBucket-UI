@@ -17,7 +17,7 @@
           <el-form-item label="">
             <el-input placeholder="请填写右侧图文验证码" v-model="loginModel.imgCode" :maxlength="4" class="imgCode">
               <template slot="prepend"><i class="el-icon-picture"></i></template>
-              <template slot="append">
+              <template slot="append" style="padding:0">
                 <img :src="imgCodeText" @click="BLL.refreshImgCode()" alt=""/>
               </template>
             </el-input>
@@ -70,7 +70,7 @@ export default {
   },
   mounted () {
     this.$nextTick(() => {
-      // this.BLL.refreshImgCode()
+      this.BLL.refreshImgCode()
       // 初始化vuex缓存数据
       if (!this.showMask) {
         this.$store.commit('MENU_INIT')
