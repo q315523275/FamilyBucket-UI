@@ -4,7 +4,7 @@ import Vue from 'vue'
 export default {
   // 登录
   Login (body, op = {}) {
-    return Vue.$api.xHttp.post(`/Auth/Login`, body, op)
+    return Vue.$api.xHttp.post(`/auth/Login`, body, op)
   },
   // 获取图形验证码地址
   getVerifyImageUrl (uid) {

@@ -1,29 +1,41 @@
 <template>
   <div class='container'>
-    <el-form :inline='true'>
-       <el-form-item>
-        <el-input placeholder="服务名称"></el-input>
+    <el-form v-model="filters" :inline='true'>
+      <el-form-item label="状态">
+        <el-select v-model="filters.State">
+          <el-option label="全部" :value=0></el-option>
+          <el-option label="健康" :value=1></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item>
+        <el-input v-model="filters.Name" placeholder="服务名称"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type='primary' @click='BLL.search()'>查询</el-button>
-        <el-button type='primary'>新增服务</el-button>
+        <el-button type='primary' @click="BLL.add()">新增服务</el-button>
       </el-form-item>
     </el-form>
     <iTable :tableData="dataList" :columns="columns" :loading="loading" :pageSize=200 ref="iTable"
             :otherHeight="230" :operateColumn="operateColumn"></iTable>
+    <edit v-model="showEdit" :modelForm="editModel" @addSuccess="BLL.search()"></edit>
   </div>
 </template>
 
 <script type='text/jsx'>
 import iTable from '../../../components/iTable.vue'
+import Edit from './Edit.vue'
 import BLL from './Index'
 
 export default {
-  components: { iTable },
+  components: { iTable, Edit },
   data () {
     return {
       editModel: null,
       showEdit: false,
+      filters: {
+        Name: null,
+        State: 0
+      },
       dataList: [],
       columns: [
         {
@@ -68,6 +80,7 @@ export default {
                 cancelButtonText: '取消',
                 type: 'warning'
               }).then(() => {
+                this.BLL.delete(row.Id)
                 this.$message({
                   type: 'success',
                   message: '删除成功!'
