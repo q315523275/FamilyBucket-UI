@@ -20,6 +20,24 @@ npm run build --report
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
+## Api 
+FamilyBucket/Bucket.Ocelot
+FamilyBucket/sample/ConfigService
+FamilyBucket/sample/Authentication
+FamilyBucket/sample/Pinzhi.Platform
+
+## Account
+
+account: admin    password:123456
+
+## Api Config
+
+path: config/index.js
+baseApi:{
+  'development': 'http://localhost:8090',
+  'production': 'http://localhost:8090'
+}
+
 ## UI Show
 
 路由配置
