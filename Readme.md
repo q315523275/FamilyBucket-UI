@@ -22,17 +22,23 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 ## Api 
 FamilyBucket/Bucket.Ocelot
+
 FamilyBucket/sample/ConfigService
+
 FamilyBucket/sample/Authentication
+
 FamilyBucket/sample/Pinzhi.Platform
 
 ## Account
 
-account: admin    password:123456
+account: admin
+
+password:123456
 
 ## Api Config
 
 path: config/index.js
+
 baseApi:{
   'development': 'http://localhost:8090',
   'production': 'http://localhost:8090'
