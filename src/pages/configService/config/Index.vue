@@ -55,26 +55,27 @@ export default {
         {
           prop: 'ConfigNamespaceName',
           label: '项目',
-          width: 100
+          width: 120
         },
         {
           prop: 'ConfigKey',
           label: '配置Key',
-          width: 130
+          width: 150
         },
         {
           prop: 'ConfigValue',
-          label: '配置Value',
-          width: 130
+          label: '配置Value'
         },
         {
           prop: 'Remark',
-          label: '备注'
+          label: '备注',
+          width: 180
         },
         {
           prop: 'Version',
           label: '版本号',
-          align: 'center'
+          align: 'center',
+          width: 100
         },
         {
           prop: 'CreateTime',
@@ -90,6 +91,7 @@ export default {
           prop: 'IsDeleted',
           label: '是否删除',
           align: 'center',
+          width: 100,
           render: (row, column) => {
             return row.IsDeleted ? '是' : '否'
           }

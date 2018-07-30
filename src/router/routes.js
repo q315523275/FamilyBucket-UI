@@ -128,6 +128,18 @@ export default [
         name: 'route',
         component: view('microservice/route/Index'),
         meta: { title: '路由管理' }
+      },
+      {
+        path: 'trace',
+        name: 'trace',
+        component: view('microservice/trace/Index'),
+        meta: { title: '链路追踪' }
+      },
+      {
+        path: 'access',
+        name: 'access',
+        component: view('microservice/trace/ECharts'),
+        meta: { title: '访问量统计' }
       }
     ]
   }

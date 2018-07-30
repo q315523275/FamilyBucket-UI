@@ -65,7 +65,7 @@ export default class {
       UserName: this.vm.loginModel.phone,
       Password: this.vm.loginModel.pwd,
       ImgCode: this.vm.loginModel.imgCode,
-      ImgCodeToken: this.vm.uid
+      Guid: this.vm.uid
     })
     if (res) {
       // 关闭登录框

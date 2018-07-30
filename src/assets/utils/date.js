@@ -28,7 +28,7 @@ function getDate(date) {
 
     }
     // unix时间戳
-    else if (/^\d{10}$/.test(date)) {
+    else if (/^\d{10|13}$/.test(date)) {
       date = new Date(parseInt(date) * 1000)
     }
     // 普通时间字符串

@@ -53,3 +53,8 @@ baseApi:{
 服务管理
 
 ![image](https://github.com/q315523275/FamilyBucket-UI/blob/master/readmeshow/mservice.png)
+
+调用链管理
+
+![image](https://github.com/q315523275/FamilyBucket-UI/blob/master/readmeshow/trace1.png)
+![image](https://github.com/q315523275/FamilyBucket-UI/blob/master/readmeshow/trace2.png)

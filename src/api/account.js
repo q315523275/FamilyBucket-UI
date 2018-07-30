@@ -8,7 +8,7 @@ export default {
   },
   // 获取图形验证码地址
   getVerifyImageUrl (uid) {
-    return Vue.$api.xHttp.getRequestUrl(`/auth/ValidateCode?ImgCodeToken=${uid}&width=100&height=39`)
+    return Vue.$api.xHttp.getRequestUrl(`/auth/ValidateCode?guid=${uid}&width=100&height=39`)
   },
   // 获取导航列表
   QueryUserMenus (op = {}) {

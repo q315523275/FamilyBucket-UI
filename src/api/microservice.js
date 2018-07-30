@@ -17,5 +17,13 @@ export default {
   },
   EditRoute (url, body, op = {}) {
     return Vue.$api.xHttp.post(url, body, op)
+  },
+  QueryTrace (param, op = {}) {
+    var qs = require('qs')
+    return Vue.$api.xHttp.get(`/tracing/api/Trace?` + qs.stringify(param), op)
+  },
+  QueryTraceHistogram (param, op = {}) {
+    var qs = require('qs')
+    return Vue.$api.xHttp.get(`/tracing/api/Trace/Histogram?` + qs.stringify(param), op)
   }
 }

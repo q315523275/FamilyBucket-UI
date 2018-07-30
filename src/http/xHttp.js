@@ -46,7 +46,7 @@ function send (url, method, body, options, load, loadMsg, loadID, validator, del
   opts.headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer ' + window.$globalHub.$store.state.auth.authInfo.AccessToken || '',
+    'Authorization': window.$globalHub.$store.state.auth.authInfo.AccessToken || '',
     ...opts.headers
   }
   return axios({ method, url, data: body, ...opts }).then(async res => {
