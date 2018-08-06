@@ -83,6 +83,8 @@ export default class {
           window.$globalHub.$store.commit('SET_PERMISSIONS', permissions)
           permissions = createMenusByJsonData(permissions)
           window.$globalHub.$store.commit('SET_USER_NAV_LIST', permissions)
+          // 清除tagView标签缓存
+          window.$globalHub.$store.commit('DEL_ALL_VIEWS')
         }
       }
       // 获取用户对应菜单

@@ -17,7 +17,8 @@ export default class extends Base {
       HostAndPort: {
         Host: null,
         Port: 80
-      }
+      },
+      HealthCheckUri: null
     }
     this.vm.showEdit = true
   }

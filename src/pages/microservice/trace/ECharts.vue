@@ -56,7 +56,7 @@ export default {
   created () {
     // 初始化
     this.BLL = new BLL(this)
-    this.filters.startTimestamp = new Date(this.$utils.Date.add(null, -1, 'hou')).getTime()
+    this.filters.startTimestamp = new Date(this.$utils.Date.add(null, -2, 'hou')).getTime()
     this.filters.finishTimestamp = new Date().getTime()
   },
   beforeDestroy () {},

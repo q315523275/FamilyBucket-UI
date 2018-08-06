@@ -25,5 +25,11 @@ export default {
   QueryTraceHistogram (param, op = {}) {
     var qs = require('qs')
     return Vue.$api.xHttp.get(`/tracing/api/Trace/Histogram?` + qs.stringify(param), op)
+  },
+  QueryTraceDetail (param, op = {}) {
+    return Vue.$api.xHttp.get(`/tracing/api/TraceDetail/` + param, op)
+  },
+  QuerySpanDetail (param, op = {}) {
+    return Vue.$api.xHttp.get(`/tracing/api/SpanDetail/` + param, op)
   }
 }

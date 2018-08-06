@@ -48,27 +48,22 @@ export default class extends Base {
           }
         },
         xAxis: {
-          splitLine: {
-            show: false
-          },
+          type: 'category',
           axisLabel: {
             rotate: -45
           },
           data: dateList
         },
         yAxis: {
-          boundaryGap: [0, '100%'],
-          splitLine: {
-            show: true
-          }
+          type: 'value'
         },
         grid: {
           bottom: '110px'
         },
         series: {
+          name: '请求量',
           type: 'line',
-          showSymbol: true,
-          hoverAnimation: true,
+          areaStyle: {},
           data: valueList
         }
       })
@@ -95,11 +90,35 @@ export default class extends Base {
       })
       if (this.vm.filters.limit > 0) {
         setTimeout(() => {
-          this.vm.filters.startTimestamp = new Date(this.vm.$utils.Date.add(null, -1, 'hou')).getTime()
+          this.vm.filters.startTimestamp = new Date(this.vm.$utils.Date.add(null, -2, 'hou')).getTime()
           this.vm.filters.finishTimestamp = new Date().getTime()
           this.echartSearch()
         }, this.vm.filters.limit * 1000)
       }
+    }
+  }
+  async showDetail (traceId) {
+    const res = await api.QueryTraceDetail(traceId, {
+      validator: (obj) => {
+        return true
+      },
+      loadID: 'edit'
+    })
+    if (res) {
+      this.vm.detailModel = res
+      this.vm.showDetail = true
+    }
+  }
+  async showSpanDetail (spanId) {
+    const res = await api.QuerySpanDetail(spanId, {
+      validator: (obj) => {
+        return true
+      },
+      loadID: 'edit'
+    })
+    if (res) {
+      this.vm.editModel = res
+      this.vm.showEdit = true
     }
   }
 }

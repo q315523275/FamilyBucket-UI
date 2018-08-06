@@ -26,7 +26,7 @@ export default new Vuex.Store({
   // 插件
   plugins: [createPersistedState({
     key: config.build.assetsPublicPath + 'vuex',
-    paths: ['menus', 'auth', 'log'], // 只缓存service里的state
+    paths: ['menus', 'auth', 'log', 'tagsView'], // 只缓存service里的state
     getState: (key) => localStorage.get(key),
     setState: (key, state) => localStorage.set(key, state)
   })]

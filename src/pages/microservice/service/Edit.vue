@@ -20,6 +20,9 @@
           <el-input v-model="modelForm.HostAndPort.Port" placeholder="端口" size="medium" style="margin-left:10px"></el-input>
         </el-col>
       </el-form-item>
+      <el-form-item label="健康检查地址" prop="HealthCheckUri">
+        <el-input v-model="modelForm.HealthCheckUri"></el-input>
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="handleSubmit">{{btnName}}</el-button>
         <el-button @click="handleReset">重置</el-button>
@@ -55,6 +58,9 @@ export default {
         ],
         HostAndPort: [
           { required: true, message: '请输入服务地址', trigger: 'blur' }
+        ],
+        HealthCheckUri: [
+          { required: true, message: '请输入检查地址', trigger: 'blur' }
         ]
       }
     }

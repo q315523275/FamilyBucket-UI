@@ -23,19 +23,21 @@
     </el-form>
     <iTable :tableData="dataList" :columns="columns" :loading="loading" :pageSize=200 ref="iTable"
             :otherHeight="230" :operateColumn="operateColumn"></iTable>
+    <detail v-model="showDetail" :modelForm="detailModel"></detail>
   </div>
 </template>
 
 <script type='text/jsx'>
 import iTable from '../../../components/iTable.vue'
+import Detail from './traceDetail'
 import BLL from './Index'
 
 export default {
-  components: { iTable },
+  components: { iTable, Detail },
   data () {
     return {
-      editModel: null,
-      showEdit: false,
+      detailModel: null,
+      showDetail: false,
       filters: {
         tags: null,
         limit: 10,
@@ -47,12 +49,15 @@ export default {
       columns: [
         {
           prop: 'TraceId',
-          label: '链路Id',
-          width: 180
+          label: '链路Id/路径',
+          render: (row, column) => {
+            return <div style='line-height: 1.2'>{ row.TraceId }<br /><font color='#F56C6C'>{ row.OperationName }</font></div>
+          }
         },
         {
           prop: 'Duration',
           label: '时间',
+          width: 400,
           render: (row, column) => {
             let per = Math.round(row.Duration * 100 / this.maxDuration)
             return <div>{ this.$utils.Date.format(row.StartTimestamp, null) } - { this.$utils.Date.format(row.FinishTimestamp, null) }  耗时{ (row.Duration / 1000) }ms<el-progress percentage={ per }></el-progress></div>
@@ -65,7 +70,7 @@ export default {
             let arr = row.Services.map(x => x.Name)
             let dis = Array.from(new Set(arr))
             return dis.map((x) => {
-              return <el-tag type="warning" style="margin-right:2px">{ x } X { arr.filter(f => f === x).length }</el-tag>
+              return <el-tag style="margin-right: 2px">{ x } X { arr.filter(f => f === x).length }</el-tag>
             })
           }
         }
@@ -79,7 +84,7 @@ export default {
             name: '查看',
             icon: 'search',
             method: (index, row) => {
-
+              this.BLL.showDetail(row.TraceId)
             },
             disabled: (index, row) => {
             }

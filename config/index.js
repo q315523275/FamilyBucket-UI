@@ -20,8 +20,8 @@ module.exports = {
       }
     },
     baseApi:{
-      'development': 'http://www.baidu.cn',
-      'production': 'http://www.baidu.cn'
+      'development': 'http://localhost:8090',
+      'production': 'http://localhost:8090'
     },
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
