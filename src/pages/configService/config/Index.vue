@@ -11,13 +11,19 @@
           <el-option v-for='item in nameSpaceList' :key='item.Name' :label='item.Name' :value='item.Name'></el-option>
         </el-select>
       </el-form-item>
+      <el-form-item label="环境">
+        <el-select v-model="filters.Environment" @change='BLL.search()'>
+          <el-option label='生产' value='pro'></el-option>
+          <el-option label='测试' value='dev'></el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item>
         <el-button type='primary' @click='BLL.search()'>查询</el-button>
         <el-button type='primary' @click='BLL.add()'>新增</el-button>
       </el-form-item>
     </el-form>
-    <iTable :tableData='dataList' :columns='columns' :loading='loading' :pageSize=20 ref='iTable'
-            :otherHeight='230' :operateColumn='operateColumn'></iTable>
+    <iTable :tableData='dataList' :columns='columns' :loading='loading' :operateColumn='operateColumn'
+            :pagination="pagination" @handleTableChange="handleTableChange" ref='iTable' :otherHeight='230'></iTable>
     <edit v-model='showEdit' :modelForm='editModel' :appList='appList' @addSuccess='BLL.search()'></edit>
   </div>
 </template>
@@ -37,8 +43,11 @@ export default {
       nameSpaceList: [],
       filters: {
         AppId: null,
-        NameSpace: null
+        NameSpace: null,
+        Environment: 'pro'
       },
+      currentIndex: 1,
+      pagination: { size: 10 },
       dataList: [],
       columns: [
         {
@@ -107,15 +116,15 @@ export default {
             icon: 'edit',
             method: (index, row) => {
               this.editModel = {
-                ...row
+                ...row,
+                Environment: this.filters.Environment
               }
               this.showEdit = true
             },
             disabled: (index, row) => {}
           }
         ]
-      }, // 操作列
-      pagination: { size: 20 }
+      }
     }
   },
   computed: {
@@ -133,6 +142,10 @@ export default {
   },
   beforeDestroy () {},
   mounted () {},
-  methods: {}
+  methods: {
+    handleTableChange (pagination) {
+      this.BLL.handleTableChange(pagination)
+    }
+  }
 }
 </script>

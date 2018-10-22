@@ -2,6 +2,9 @@
   <el-dialog :title="btnName" :visible.sync="show" :close-on-click-modal="false" width="50%">
     <el-form :model="modelForm" :rules="rules" ref="modelForm" label-width="120px" v-if="modelForm"
              v-loading="loading">
+      <el-form-item label="环境" prop="Environment">
+        {{ modelForm.Environment }}
+      </el-form-item>
       <el-form-item label="归属项目组" prop="ConfigAppId">
         <el-select v-model='modelForm.ConfigAppId' placeholder='请选择' @change='searchNamespace()'>
           <el-option v-for='item in appList' :key='item.AppId' :label='item.Name' :value='item.AppId'></el-option>
@@ -57,6 +60,9 @@ export default {
       show: false,
       btnName: '新建',
       rules: {
+        Environment: [
+          { required: true, message: '环境数据丢失', trigger: 'blur' }
+        ],
         ConfigKey: [
           { required: true, message: '请输入配置项', trigger: 'blur' }
         ],

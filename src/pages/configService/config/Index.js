@@ -22,12 +22,30 @@ export default class extends Base {
     }
   }
 
-  async search (body) {
-    const filter = this.vm.filters
-    const res = await api.QueryConfigList(filter)
+  async fetch (params) {
+    const res = await api.QueryConfigList(params)
     if (res) {
       this.vm.dataList = res.Data
+      this.vm.pagination.total = res.Total
     }
+  }
+
+  async search () {
+    this.vm.currentIndex = 1
+    this.fetch({
+      PageIndex: this.vm.currentIndex,
+      PageSize: this.vm.pagination.size,
+      ...this.vm.filters
+    })
+  }
+
+  handleTableChange (pagination) {
+    this.vm.currentIndex = pagination.current
+    this.fetch({
+      PageIndex: pagination.current,
+      PageSize: pagination.pageSize,
+      ...this.vm.filters
+    })
   }
 
   add () {
@@ -37,7 +55,8 @@ export default class extends Base {
       ConfigKey: null,
       ConfigValue: null,
       Remark: null,
-      IsDeleted: false
+      IsDeleted: false,
+      Environment: this.vm.filters.Environment
     }
     this.vm.showEdit = true
   }

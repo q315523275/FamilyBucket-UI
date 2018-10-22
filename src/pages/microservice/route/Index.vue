@@ -91,7 +91,13 @@ export default {
             icon: 'edit',
             method: (index, row) => {
               this.editModel = {
-                ...row
+                ...row,
+                UseServiceDiscovery: false
+              }
+              if (this.editModel.ServiceName === null || this.editModel.ServiceName.length === 0) {
+                this.editModel.UseServiceDiscovery = false
+              } else {
+                this.editModel.UseServiceDiscovery = true
               }
               this.editIndex = index
               this.showEdit = true
