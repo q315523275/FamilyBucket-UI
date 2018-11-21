@@ -2,47 +2,30 @@
   <div class='container'>
     <el-form :inline='true'>
       <el-form-item>
-        <el-button type='primary' @click='BLL.showAuth()'>Token与参数配置</el-button>
         <el-button type='primary' @click='BLL.search()'>查询</el-button>
         <el-button type="primary" @click="BLL.add()">新增</el-button>
       </el-form-item>
     </el-form>
-    <el-form :inline='true'>
-      <el-form-item label="网关地址">
-        {{authModel.GatewayURL}}
-      </el-form-item>
-      <el-form-item label="配置路径">
-        {{authModel.SettingURL}}
-      </el-form-item>
-       <el-form-item label="配置Token">
-        {{authModel.AccessToken ? '已配置':'未配置'}}
-      </el-form-item>
-    </el-form>
     <iTable :tableData="dataList" :columns="columns" :loading="loading" :pageSize=200 ref="iTable"
             :otherHeight="230" :operateColumn="operateColumn"></iTable>
-    <AuthToken v-model="showAuth" :modelForm="authModel" @addSuccess="BLL.search()"></AuthToken>
-    <edit v-model="showEdit" :modelForm="editModel" :allModel="allData" :editIndex="editIndex" :authModel="authModel" @addSuccess="BLL.search()"></edit>
+    <edit v-model="showEdit" :modelForm="editModel" :allModel="allData" :editIndex="editIndex" @addSuccess="BLL.search()"></edit>
   </div>
 </template>
 
 <script type='text/jsx'>
 import iTable from '../../../components/iTable.vue'
-import AuthToken from './Token.vue'
 import Edit from './Edit.vue'
 import BLL from './Index'
 
 export default {
-  components: { iTable, AuthToken, Edit },
+  components: { iTable, Edit },
   data () {
     return {
       editModel: null,
       showEdit: false,
-      authModel: {
-        GatewayURL: 'http://localhost:8090',
-        AccessToken: null,
-        SettingURL: '/administration/configuration'
+      filters: {
+        State: 0
       },
-      showAuth: false,
       editIndex: -1,
       allData: {},
       dataList: [],
@@ -119,6 +102,7 @@ export default {
   created () {
     // 初始化
     this.BLL = new BLL(this)
+    this.BLL.search()
   },
   beforeDestroy () {},
   mounted () {},

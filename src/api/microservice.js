@@ -12,11 +12,11 @@ export default {
   DeleteService (body, op = {}) {
     return Vue.$api.xHttp.post(`/Platform/Microservice/DeleteService`, body, op)
   },
-  QueryRouteList (url, op = {}) {
-    return Vue.$api.xHttp.get(url, op)
+  GetApiGatewayConfiguration (op = {}) {
+    return Vue.$api.xHttp.get(`/Platform/Microservice/GetApiGatewayConfiguration`, op)
   },
-  EditRoute (url, body, op = {}) {
-    return Vue.$api.xHttp.post(url, body, op)
+  SetApiGatewayConfiguration (body, op = {}) {
+    return Vue.$api.xHttp.post(`/Platform/Microservice/SetApiGatewayConfiguration`, body, op)
   },
   QueryTrace (param, op = {}) {
     var qs = require('qs')

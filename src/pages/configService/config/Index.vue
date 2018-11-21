@@ -8,6 +8,7 @@
       </el-form-item>
       <el-form-item>
         <el-select v-model='filters.NameSpace' placeholder='请选择项目'>
+          <el-option key="AppId" label='全部项目' value=''></el-option>
           <el-option v-for='item in nameSpaceList' :key='item.Name' :label='item.Name' :value='item.Name'></el-option>
         </el-select>
       </el-form-item>

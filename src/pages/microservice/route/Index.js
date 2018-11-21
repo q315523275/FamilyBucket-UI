@@ -3,43 +3,12 @@ import Base from '../../Base/index'
 
 export default class extends Base {
   async search () {
-    if (this.vm.authModel.AccessToken) {
-      const url = this.vm.authModel.GatewayURL + this.vm.authModel.SettingURL
-      const res = await api.QueryRouteList(url, {
-        options: {
-          headers: {
-            'Authorization': this.vm.authModel.AccessToken
-          }
-        },
-        validator: (obj) => {
-          return true
-        },
-        defEx: false
-      })
-      if (res) {
-        this.vm.allData = res
-        this.vm.dataList = this.vm.allData.ReRoutes
-      }
-    } else {
-      this.vm.$notify({
-        title: '提示',
-        message: '请先填写授权Token',
-        type: 'warning'
-      })
+    const filter = this.vm.filters
+    const res = await api.GetApiGatewayConfiguration(filter)
+    if (res) {
+      this.vm.allData = res.Data
+      this.vm.dataList = this.vm.allData.ReRoutes
     }
-  }
-  showAuth () {
-    this.vm.showAuth = true
-  }
-  authSubmit () {
-    this.vm.$refs.modelForm.validate(async (valid) => {
-      if (valid) {
-        this.vm.$emit('addSuccess')
-        this.vm.show = false
-      } else {
-        return false
-      }
-    })
   }
   add () {
     this.vm.editModel = {
@@ -112,9 +81,8 @@ export default class extends Base {
         } else {
           this.vm.allModel.ReRoutes.splice(this.vm.editIndex, 1, this.vm.modelForm)
         }
-        const op = { loadID: 'edit', options: { headers: { 'Authorization': this.vm.authModel.AccessToken } }, validator: (obj) => { return true }, defEx: false }
-        const url = this.vm.authModel.GatewayURL + this.vm.authModel.SettingURL
-        const res = await api.EditRoute(url, this.vm.allModel, op)
+        const op = { loadID: 'edit' }
+        const res = await api.SetApiGatewayConfiguration(this.vm.allModel, op)
         if (res) {
           this.vm.show = false
           this.vm.$emit('addSuccess')
