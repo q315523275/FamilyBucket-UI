@@ -14,7 +14,7 @@ export default class extends Base {
     const res = await api.QueryRoles('', { load: false })
     if (res) {
       res.Data.forEach(x => {
-        this.vm.roleList.push({ Id: x.Id, Name: x.ProjectName + '/' + x.Name })
+        this.vm.roleList.push({ Id: x.Id, Name: x.PlatformKey + '/' + x.Name })
       })
     }
   }

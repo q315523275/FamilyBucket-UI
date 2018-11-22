@@ -32,11 +32,11 @@ function createMenusByJsonData2 (jsonData) {
 export default class extends Base {
   async init () {
     const res = await this.vm.$api.xHttp.all([
-      api.QueryProjectList({ load: false }),
+      api.QueryPlatforms({ load: false }),
       api.QueryAllMenus('', { load: false })
     ])
     if (res) {
-      this.vm.projectList = res[0].Data
+      this.vm.platformList = res[0].Data
       this.vm.menusList = createMenusByJsonData2(res[1].Data)
     }
   }
@@ -81,29 +81,27 @@ export default class extends Base {
         })
         this.vm.apiTreeCheck = apiCheck
       }
-      // 初始化接口权限列表
-      this.searchApiList()
     }
+    // 初始化接口权限列表
+    this.searchApiList()
   }
 
   async searchApiList () {
-    if (this.vm.modelForm.ProjectName) {
-      const filter = { ProjectKey: this.vm.modelForm.ProjectName, PageSize: 1000 }
-      const res = await api.QueryApiList(filter, { load: false })
-      if (res) {
-        let apilist = []
-        res.Data.forEach(x => {
-          // 2只显示需要验证权限的接口信息
-          if (x.AllowScope === 2) {
-            apilist.push({
-              label: x.ProjectName + '/' + x.Controller + '/' + x.Message,
-              id: x.Id,
-              children: []
-            })
-          }
-        })
-        this.vm.apiTreeList = apilist
-      }
+    const filter = { PageSize: 10000 }
+    const res = await api.QueryApiList(filter, { load: false })
+    if (res) {
+      const apilist = []
+      res.Data.forEach(x => {
+        // 2只显示需要验证权限的接口信息
+        if (x.AllowScope === 2) {
+          apilist.push({
+            label: x.ProjectName + '/' + x.Controller + '/' + x.Message,
+            id: x.Id,
+            children: []
+          })
+        }
+      })
+      this.vm.apiTreeList = apilist
     }
   }
 

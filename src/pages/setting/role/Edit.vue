@@ -5,8 +5,8 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="所属项目" prop="ProjectName">
-            <el-select v-model='modelForm.ProjectName' placeholder='请选择项目' @change='BLL.searchApiList()'>
-              <el-option v-for='item in projectList' :key='item.Key' :label='item.Name' :value='item.Key'></el-option>
+            <el-select v-model='modelForm.PlatformKey' placeholder='请选择项目' @change='BLL.searchApiList()'>
+              <el-option v-for='item in platformList' :key='item.Key' :label='item.Name' :value='item.Key'></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -74,7 +74,7 @@ export default {
     menusList: {
       type: Array
     },
-    projectList: {
+    platformList: {
       type: Array
     }
   },
@@ -89,8 +89,8 @@ export default {
       show: false,
       btnName: '新建',
       rules: {
-        ProjectName: [
-          { required: true, message: '请选择所属项目', trigger: 'blur' }
+        PlatformKey: [
+          { required: true, message: '请选择所属平台', trigger: 'blur' }
         ],
         Name: [
           { required: true, message: '请输入角色名称', trigger: 'blur' }

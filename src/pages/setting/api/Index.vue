@@ -13,8 +13,8 @@
         <el-button type='primary' @click='BLL.search()'>批量导入</el-button>
       </el-form-item>
     </el-form>
-    <iTable :tableData="dataList" :columns="columns" :loading="loading" :pageSize=20 ref="iTable"
-            :otherHeight="230" :operateColumn="operateColumn"></iTable>
+    <iTable :tableData='dataList' :columns='columns' :loading='loading' :operateColumn='operateColumn'
+            :pagination="pagination" @handleTableChange="handleTableChange" ref='iTable' :otherHeight='230'></iTable>
     <edit v-model="showEdit" :modelForm="editModel" :projectList="projectList" @addSuccess="BLL.search()"></edit>
   </div>
 </template>
@@ -34,6 +34,8 @@ export default {
       filters: {
         ProjectKey: ''
       },
+      currentIndex: 1,
+      pagination: { size: 10 },
       dataList: [],
       columns: [
         {
@@ -114,8 +116,7 @@ export default {
             disabled: (index, row) => {}
           }
         ]
-      }, // 操作列
-      pagination: { size: 20 }
+      }
     }
   },
   computed: {
@@ -133,6 +134,10 @@ export default {
   },
   beforeDestroy () {},
   mounted () {},
-  methods: {}
+  methods: {
+    handleTableChange (pagination) {
+      this.BLL.handleTableChange(pagination)
+    }
+  }
 }
 </script>

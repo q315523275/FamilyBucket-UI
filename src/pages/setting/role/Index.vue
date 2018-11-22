@@ -2,9 +2,9 @@
  <div class='container'>
     <el-form :inline='true' :model='filters'>
       <el-form-item>
-        <el-select v-model='filters.ProjectKey' placeholder='请选择项目'>
+        <el-select v-model='filters.PlatformKey' placeholder='请选择项目'>
           <el-option value='' key='' label='全部项目'></el-option>
-          <el-option v-for='item in projectList' :key='item.Key' :label='item.Name' :value='item.Key'></el-option>
+          <el-option v-for='item in platformList' :key='item.Key' :label='item.Name' :value='item.Key'></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -14,7 +14,7 @@
     </el-form>
     <iTable :tableData='dataList' :columns='columns' :loading='loading' :pageSize=20 ref='iTable'
             :otherHeight='230' :operateColumn="operateColumn"></iTable>
-    <edit v-model="showEdit" :modelForm="editModel" :menusList="menusList" :projectList="projectList" @addSuccess="BLL.search()"></edit>
+    <edit v-model="showEdit" :modelForm="editModel" :menusList="menusList" :platformList="platformList" @addSuccess="BLL.search()"></edit>
   </div>
 </template>
 <script type="text/jsx">
@@ -29,9 +29,9 @@ export default {
     return {
       editModel: null,
       showEdit: false,
-      projectList: [],
+      platformList: [],
       filters: {
-        ProjectKey: ''
+        PlatformKey: ''
       },
       apiList: [],
       menusList: [],
@@ -45,8 +45,8 @@ export default {
           align: 'center'
         },
         {
-          prop: 'ProjectName',
-          label: '项目名称'
+          prop: 'PlatformKey',
+          label: '平台名称'
         },
         {
           prop: 'Name',

@@ -9,12 +9,30 @@ export default class extends Base {
     }
   }
   async search () {
-    const filter = this.vm.filters
-    const res = await api.QueryApiList(filter)
+    this.fetch({
+      PageIndex: this.vm.currentIndex,
+      PageSize: this.vm.pagination.size,
+      ...this.vm.filters
+    })
+  }
+
+  handleTableChange (pagination) {
+    this.vm.currentIndex = pagination.current
+    this.fetch({
+      PageIndex: pagination.current,
+      PageSize: pagination.pageSize,
+      ...this.vm.filters
+    })
+  }
+
+  async fetch (params) {
+    const res = await api.QueryApiList(params)
     if (res) {
       this.vm.dataList = res.Data
+      this.vm.pagination.total = res.Total
     }
   }
+
   add () {
     this.vm.editModel = {
       ProjectName: null,
