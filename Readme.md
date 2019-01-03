@@ -58,3 +58,7 @@ baseApi:{
 
 ![image](https://github.com/q315523275/FamilyBucket-UI/blob/master/readmeshow/trace1.png)
 ![image](https://github.com/q315523275/FamilyBucket-UI/blob/master/readmeshow/trace2.png)
+
+应用通知
+
+![image](https://github.com/q315523275/FamilyBucket-UI/blob/master/readmeshow/notify.png)
