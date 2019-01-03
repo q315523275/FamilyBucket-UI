@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="dmc-user-info-bg">
-      Admin Service
+      Family Bucket
       <!--<img src="../../../assets/images/axon.png" v-if="!isCollapse">-->
     </div>
     <scroll-bar class="scroll-bar">
@@ -51,7 +51,7 @@ export default {
 </script>
 <style lang="less">
 .dmc-user-info-bg {
-  font-size: 25px;
+  font-size: 24px;
   color: #fff;
   font-weight: 500;
   z-index: 200;

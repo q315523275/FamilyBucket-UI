@@ -20,7 +20,7 @@ export default class {
     this.vm = vm
     if (process.env.NODE_ENV === 'development') {
       this.vm.loginModel.phone = 'admin'
-      this.vm.loginModel.pwd = '123456'
+      this.vm.loginModel.pwd = ''
     }
   }
 

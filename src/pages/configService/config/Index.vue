@@ -14,8 +14,10 @@
       </el-form-item>
       <el-form-item label="环境">
         <el-select v-model="filters.Environment" @change='BLL.search()'>
-          <el-option label='生产' value='pro'></el-option>
-          <el-option label='测试' value='dev'></el-option>
+          <el-option label='测试环境' value='dev'></el-option>
+          <el-option label='测试验收环境' value='uat'></el-option>
+          <el-option label='预生产环境' value='prepro'></el-option>
+          <el-option label='生产环境' value='pro'></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -45,7 +47,7 @@ export default {
       filters: {
         AppId: null,
         NameSpace: null,
-        Environment: 'pro'
+        Environment: 'dev'
       },
       currentIndex: 1,
       pagination: { size: 10 },
@@ -69,12 +71,12 @@ export default {
         },
         {
           prop: 'ConfigKey',
-          label: '配置Key',
+          label: 'Key',
           width: 150
         },
         {
           prop: 'ConfigValue',
-          label: '配置Value'
+          label: 'Value'
         },
         {
           prop: 'Remark',
@@ -85,12 +87,7 @@ export default {
           prop: 'Version',
           label: '版本号',
           align: 'center',
-          width: 100
-        },
-        {
-          prop: 'CreateTime',
-          label: '创建时间',
-          width: 160
+          width: 80
         },
         {
           prop: 'LastTime',
@@ -99,9 +96,9 @@ export default {
         },
         {
           prop: 'IsDeleted',
-          label: '是否删除',
+          label: '删除',
           align: 'center',
-          width: 100,
+          width: 80,
           render: (row, column) => {
             return row.IsDeleted ? '是' : '否'
           }

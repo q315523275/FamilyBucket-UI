@@ -136,6 +136,12 @@ export default [
         meta: { title: '链路追踪' }
       },
       {
+        path: 'traceOnline',
+        name: 'traceOnline',
+        component: view('microservice/trace/TraceOnline'),
+        meta: { title: '链路监听' }
+      },
+      {
         path: 'access',
         name: 'access',
         component: view('microservice/trace/ECharts'),

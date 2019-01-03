@@ -22,5 +22,8 @@ export default {
   },
   SetConfigInfo (body, op = {}) {
     return Vue.$api.xHttp.post(`/Platform/Config/SetAppConfigInfo`, body, op)
+  },
+  PublishCommand (body, op = {}) {
+    return Vue.$api.xHttp.post(`/Platform/Config/PublishCommand`, body, op)
   }
 }

@@ -49,4 +49,23 @@ export default class extends Base {
       }
     })
   }
+
+  notifySubmit () {
+    this.vm.$refs.modelForm.validate(async (valid) => {
+      if (valid) {
+        const op = { loadID: 'edit' }
+        const res = await api.PublishCommand(this.vm.modelForm, op)
+        if (res) {
+          this.vm.show = false
+          this.vm.$notify({
+            title: '成功',
+            message: '发送成功',
+            type: 'success'
+          })
+        }
+      } else {
+        return false
+      }
+    })
+  }
 }

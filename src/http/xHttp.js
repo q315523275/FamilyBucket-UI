@@ -10,7 +10,7 @@ const DEF_FAIL_HANDLING = (res) => ex.ErrorMsgNotification(res.ErrorCode, res.Me
 // 通用接口异常处理
 const DEF_EXCEPTION_HANDLING = (status) => ex.ErrorMsgNotification(status)
 // 默认接口延迟300毫秒
-const DEF_DELAY = 300
+const DEF_DELAY = 150
 
 function requestUrl (url) {
   // 测试/生产环境

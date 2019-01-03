@@ -31,5 +31,11 @@ export default {
   },
   QuerySpanDetail (param, op = {}) {
     return Vue.$api.xHttp.get(`/tracing/api/SpanDetail/` + param, op)
+  },
+  AddListener (param, op = {}) {
+    return Vue.$api.xHttp.get(`http://10.10.188.136:17071/SocketGroup/AddToGroup` + param, op)
+  },
+  RemoveListener (param, op = {}) {
+    return Vue.$api.xHttp.get(`http://10.10.188.136:17071/SocketGroup/RemoveFromGroup` + param, op)
   }
 }

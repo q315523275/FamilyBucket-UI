@@ -32,6 +32,14 @@ export default {
   QueryProjectList (op = {}) {
     return Vue.$api.xHttp.get(`/Platform/Project/QueryProject`, op)
   },
+  // 设置项目信息
+  SetProjectInfo (body, op = {}) {
+    return Vue.$api.xHttp.post(`/Platform/Project/SetProject`, body, op)
+  },
+  // 推送项目命令信息
+  PublishCommand (body, op = {}) {
+    return Vue.$api.xHttp.post(`/Platform/Project/PublishCommand`, body, op)
+  },
   // 获取角色列表
   QueryAllRoles (param, op = {}) {
     var qs = require('qs')

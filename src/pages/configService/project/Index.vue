@@ -8,6 +8,13 @@
         </el-select>
       </el-form-item>
       <el-form-item>
+        <el-select v-model="filters.IsPublic">
+          <el-option label="全部" :value=-1></el-option>
+          <el-option label="公有" :value=1></el-option>
+          <el-option label="私有" :value=0></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item>
         <el-button type='primary' @click='BLL.search()'>查询</el-button>
         <el-button type='primary' @click='BLL.add()'>新增</el-button>
       </el-form-item>
@@ -15,20 +22,24 @@
     <iTable :tableData='dataList' :columns='columns' :loading='loading' :pageSize=20 ref='iTable'
             :otherHeight='230' :operateColumn='operateColumn'></iTable>
     <edit v-model='showEdit' :modelForm='editModel' :appList='appList' @addSuccess='BLL.search()'></edit>
+    <notify v-model='showNotify' :modelForm='notifyModel'></notify>
   </div>
 </template>
 
 <script type='text/jsx'>
 import iTable from '../../../components/iTable.vue'
 import Edit from './Edit.vue'
+import Notify from './Notify.vue'
 import BLL from './Index'
 
 export default {
-  components: { iTable, Edit },
+  components: { iTable, Edit, Notify },
   data () {
     return {
       editModel: null,
       showEdit: false,
+      notifyModel: null,
+      showNotify: false,
       appList: [],
       filters: {
         AppId: ''
@@ -43,8 +54,7 @@ export default {
         },
         {
           prop: 'Name',
-          label: '项目名称',
-          width: 130
+          label: '项目编号'
         },
         {
           prop: 'AppId',
@@ -53,8 +63,9 @@ export default {
         },
         {
           prop: 'IsPublic',
-          label: '是否公有',
+          label: '公有',
           align: 'center',
+          width: 80,
           render: (row, column) => {
             return row.IsPublic ? '是' : '否'
           }
@@ -65,33 +76,21 @@ export default {
         },
         {
           prop: 'IsDeleted',
-          label: '是否删除',
+          label: '删除',
           align: 'center',
+          width: 80,
           render: (row, column) => {
             return row.IsDeleted ? '是' : '否'
           }
         },
         {
-          prop: 'CreateTime',
-          label: '创建时间',
-          width: 160
-        },
-        {
-          prop: 'CreateUid',
-          label: '创建人编号'
-        },
-        {
           prop: 'LastTime',
           label: '修改时间',
           width: 160
-        },
-        {
-          prop: 'LastUid',
-          label: '修改人编号'
         }
       ],
       operateColumn: {
-        width: 110,
+        width: 200,
         fixed: 'right',
         list: [
           {
@@ -103,6 +102,20 @@ export default {
                 ...row
               }
               this.showEdit = true
+            },
+            disabled: (index, row) => {}
+          },
+          {
+            type: 'danger',
+            name: '应用通知',
+            icon: 'refresh',
+            method: (index, row) => {
+              this.notifyModel = {
+                ProjectName: row.Name,
+                CommandText: null,
+                CommandType: null
+              }
+              this.showNotify = true
             },
             disabled: (index, row) => {}
           }
