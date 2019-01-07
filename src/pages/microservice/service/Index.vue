@@ -1,12 +1,6 @@
 <template>
   <div class='container'>
     <el-form v-model="filters" :inline='true'>
-      <el-form-item label="状态">
-        <el-select v-model="filters.State">
-          <el-option label="全部" :value=0></el-option>
-          <el-option label="健康" :value=1></el-option>
-        </el-select>
-      </el-form-item>
       <el-form-item>
         <el-input v-model="filters.Name" placeholder="服务名称"></el-input>
       </el-form-item>
@@ -33,8 +27,7 @@ export default {
       editModel: null,
       showEdit: false,
       filters: {
-        Name: null,
-        State: 0
+        Name: null
       },
       dataList: [],
       columns: [
