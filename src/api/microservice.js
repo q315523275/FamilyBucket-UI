@@ -12,12 +12,6 @@ export default {
   DeleteService (body, op = {}) {
     return Vue.$api.xHttp.post(`/Platform/Microservice/DeleteService`, body, op)
   },
-  GetApiGatewayConfiguration (op = {}) {
-    return Vue.$api.xHttp.get(`/Platform/Microservice/GetApiGatewayConfiguration`, op)
-  },
-  SetApiGatewayConfiguration (body, op = {}) {
-    return Vue.$api.xHttp.post(`/Platform/Microservice/SetApiGatewayConfiguration`, body, op)
-  },
   QueryTrace (param, op = {}) {
     var qs = require('qs')
     return Vue.$api.xHttp.get(`/tracing/api/Trace?` + qs.stringify(param), op)
@@ -37,5 +31,26 @@ export default {
   },
   RemoveListener (param, op = {}) {
     return Vue.$api.xHttp.get(`http://10.10.188.136:17071/SocketGroup/RemoveFromGroup` + param, op)
+  },
+  QueryGatewayList (op = {}) {
+    return Vue.$api.xHttp.get(`/Platform/Microservice/QueryApiGatewayConfiguration`, op)
+  },
+  SetApiGatewayConfiguration (body, op = {}) {
+    return Vue.$api.xHttp.post(`/Platform/Microservice/SetApiGatewayConfiguration`, body, op)
+  },
+  QueryApiGatewayReRouteList (param, op = {}) {
+    var qs = require('qs')
+    return Vue.$api.xHttp.get(`/Platform/Microservice/QueryApiGatewayReRouteList?` + qs.stringify(param), op)
+  },
+  SetApiGatewayReRoute (body, op = {}) {
+    return Vue.$api.xHttp.post(`/Platform/Microservice/SetApiGatewayReRoute`, body, op)
+  },
+  SyncApiGatewayConfigurationToConsul (param, op = {}) {
+    var qs = require('qs')
+    return Vue.$api.xHttp.get(`/Platform/Microservice/SyncApiGatewayConfigurationToConsul?` + qs.stringify(param), op)
+  },
+  SyncApiGatewayConfigurationToRedis (param, op = {}) {
+    var qs = require('qs')
+    return Vue.$api.xHttp.get(`/Platform/Microservice/SyncApiGatewayConfigurationToRedis?` + qs.stringify(param), op)
   }
 }

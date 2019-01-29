@@ -6,7 +6,7 @@
         <el-col :span="12">
           <el-form-item label="所属项目" prop="ProjectName">
             <el-select v-model='modelForm.ProjectName' placeholder='请选择项目'>
-              <el-option v-for='item in projectList' :key='item.Key' :label='item.Name' :value='item.Key'></el-option>
+              <el-option v-for='item in projectList' :key='item.Code' :label='item.Name' :value='item.Code'></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -88,7 +88,7 @@ export default {
       btnName: '新建',
       rules: {
         ProjectName: [
-          { required: true, message: '请选择项目', trigger: 'blur' }
+          { required: true, message: '请选择项目', trigger: 'change' }
         ],
         Message: [
           { required: true, message: '请输入资源描述', trigger: 'blur' }
@@ -103,7 +103,7 @@ export default {
           { required: true, message: '请选择资源状态', trigger: 'blur' }
         ],
         AllowScope: [
-          { required: true, message: '请选择访问范围', trigger: 'blur' }
+          { required: true, message: '请选择访问范围', trigger: 'change' }
         ]
       }
     }

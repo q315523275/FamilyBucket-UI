@@ -4,7 +4,7 @@
       <el-form-item>
         <el-select v-model='filters.ProjectKey' placeholder='请选择项目'>
           <el-option value='' key='' label='全部项目'></el-option>
-          <el-option v-for='item in projectList' :key='item.Key' :label='item.Name' :value='item.Key'></el-option>
+          <el-option v-for='item in projectList' :key='item.Code' :label='item.Name' :value='item.Code'></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>

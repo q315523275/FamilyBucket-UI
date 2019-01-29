@@ -124,6 +124,12 @@ export default [
         meta: { title: '服务发现' }
       },
       {
+        path: 'gateway',
+        name: 'gateway',
+        component: view('microservice/gateway/Index'),
+        meta: { title: '网关管理' }
+      },
+      {
         path: 'route',
         name: 'route',
         component: view('microservice/route/Index'),

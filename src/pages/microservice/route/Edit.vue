@@ -71,13 +71,16 @@
           </el-form-item>
           <el-row>
             <el-col :span="12">
-              <el-form-item label="区分小大写" prop="ReRouteIsCaseSensitive">
-                <el-switch v-model="modelForm.ReRouteIsCaseSensitive"></el-switch>
+              <el-form-item label="是否启用" prop="State">
+                <el-switch on-text="启用" off-text="禁用" :active-value="1" :inactive-value="0" v-model="modelForm.State"></el-switch>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="请求标识" prop="RequestIdKey">
-                <el-input v-model="modelForm.RequestIdKey"></el-input>
+              <el-form-item label="归属网关" prop="GatewayId">
+                <el-select v-model='modelForm.GatewayId' placeholder='请选择网关'>
+                  <el-option value='' key='' label='全部'></el-option>
+                  <el-option v-for='item in gatewayList' :key='item.GatewayId' :label='item.GatewayKey' :value='item.GatewayId'></el-option>
+                </el-select>
               </el-form-item>
             </el-col>
           </el-row>
@@ -100,8 +103,8 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="SSL警告" prop="DangerousAcceptAnyServerCertificateValidator">
-                <el-switch v-model="modelForm.DangerousAcceptAnyServerCertificateValidator"></el-switch>
+              <el-form-item label="请求标识" prop="RequestIdKey">
+                <el-input v-model="modelForm.RequestIdKey"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -114,7 +117,11 @@
             </el-col>
           </el-form-item>
           <el-form-item label="上游主机限制" prop="UpstreamHost">
-            <el-input v-model="modelForm.UpstreamHost" placeholder="上游主机限制"></el-input>
+            <el-row>
+              <el-col :span="12">
+                <el-input v-model="modelForm.UpstreamHost" placeholder="上游主机限制"></el-input>
+              </el-col>
+            </el-row>
           </el-form-item>
         </el-tab-pane>
         <el-tab-pane label="认证授权">
@@ -170,7 +177,22 @@
             <el-switch active-text="使用" inactive-text="不使用" v-model="modelForm.HttpHandlerOptions.UseProxy"></el-switch>
           </el-form-item>
         </el-tab-pane>
-        <el-tab-pane label="数据转换"></el-tab-pane>
+        <el-tab-pane label="黑白名单">
+          <el-form-item label="白名单" prop="SecurityOptions.IPAllowedList">
+            <el-tag :key="tag" type="danger" v-for="tag in modelForm.SecurityOptions.IPAllowedList" closable @close="tagClose(modelForm.SecurityOptions.IPAllowedList, tag)">{{tag}}</el-tag>
+            <el-input class="input-new-tag" v-model="inputTagValue" placeholder="输入回车确认" @keyup.enter.native="handleInputTagConfirm(modelForm.SecurityOptions.IPAllowedList)" @blur="handleInputTagConfirm(modelForm.SecurityOptions.IPAllowedList)"></el-input>
+          </el-form-item>
+          <el-form-item label="黑名单" prop="SecurityOptions.IPBlockedList">
+            <el-tag :key="tag" type="danger" v-for="tag in modelForm.SecurityOptions.IPBlockedList" closable @close="tagClose(modelForm.SecurityOptions.IPBlockedList, tag)">{{tag}}</el-tag>
+            <el-input class="input-new-tag" v-model="inputTagValue" placeholder="输入回车确认" @keyup.enter.native="handleInputTagConfirm(modelForm.SecurityOptions.IPBlockedList)" @blur="handleInputTagConfirm(modelForm.SecurityOptions.IPBlockedList)"></el-input>
+          </el-form-item>
+        </el-tab-pane>
+        <el-tab-pane label="委托处理">
+          <el-form-item label="HttpClient委托" prop="DelegatingHandlers">
+            <el-tag :key="tag" type="danger" v-for="tag in modelForm.DelegatingHandlers" closable @close="tagClose(modelForm.DelegatingHandlers, tag)">{{tag}}</el-tag>
+            <el-input class="input-new-tag" v-model="inputTagValue" placeholder="输入回车确认" @keyup.enter.native="handleInputTagConfirm(modelForm.DelegatingHandlers)" @blur="handleInputTagConfirm(modelForm.DelegatingHandlers)"></el-input>
+          </el-form-item>
+        </el-tab-pane>
       </el-tabs>
       <el-form-item>
         <el-button type="primary" @click="handleSubmit">{{btnName}}</el-button>
@@ -191,14 +213,8 @@ export default {
     modelForm: {
       type: Object
     },
-    allModel: {
-      type: Object
-    },
-    authModel: {
-      type: Object
-    },
-    editIndex: {
-      type: Number
+    gatewayList: {
+      type: Array
     }
   },
   data () {
@@ -208,6 +224,9 @@ export default {
       show: false,
       btnName: '新建',
       rules: {
+        GatewayId: [
+          { required: true, message: '必填', trigger: 'change' }
+        ],
         UpstreamPathTemplate: [
           { required: true, message: '必填', trigger: 'blur' }
         ],

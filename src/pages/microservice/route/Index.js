@@ -2,33 +2,63 @@ import api from '../../../api/microservice' // eslint-disable-line
 import Base from '../../Base/index'
 
 export default class extends Base {
-  async search () {
-    const filter = this.vm.filters
-    const res = await api.GetApiGatewayConfiguration(filter)
+  async init () {
+    const res = await api.QueryGatewayList({
+      PageIndex: 1,
+      PageSize: 100
+    })
     if (res) {
-      this.vm.allData = res.Data
-      this.vm.dataList = this.vm.allData.ReRoutes
+      this.vm.gatewayList = res.Data
     }
   }
+
+  async fetch (params) {
+    const res = await api.QueryApiGatewayReRouteList(params)
+    if (res) {
+      this.vm.dataList = res.Data
+      this.vm.pagination.total = res.Total
+    }
+  }
+
+  async search () {
+    this.vm.currentIndex = 1
+    this.fetch({
+      PageIndex: this.vm.currentIndex,
+      PageSize: this.vm.pagination.size,
+      ...this.vm.filters
+    })
+  }
+
+  handleTableChange (pagination) {
+    this.vm.currentIndex = pagination.current
+    this.fetch({
+      PageIndex: pagination.current,
+      PageSize: pagination.pageSize,
+      ...this.vm.filters
+    })
+  }
+
   add () {
     this.vm.editModel = {
-      DownstreamPathTemplate: null,
+      GatewayId: null,
+      State: 1,
       UpstreamPathTemplate: null,
       UpstreamHttpMethod: [],
-      AddHeadersToRequest: {},
-      UpstreamHeaderTransform: {},
-      DownstreamHeaderTransform: {},
-      AddClaimsToRequest: {},
-      RouteClaimsRequirement: {},
-      AddQueriesToRequest: {},
+      UpstreamHost: null,
+      DownstreamPathTemplate: null,
+      DownstreamScheme: null,
+      DownstreamHostAndPorts: [
+        {
+          Host: '',
+          Port: 80
+        }
+      ],
+      ServiceName: null,
       RequestIdKey: null,
       FileCacheOptions: {
         TtlSeconds: 0,
         Region: null
       },
-      ReRouteIsCaseSensitive: false,
-      ServiceName: null,
-      DownstreamScheme: null,
       QoSOptions: {
         ExceptionsAllowedBeforeBreaking: 0,
         DurationOfBreak: 0,
@@ -57,18 +87,14 @@ export default class extends Base {
         UseProxy: false
       },
       UseServiceDiscovery: false,
-      DownstreamHostAndPorts: [
-        {
-          Host: '',
-          Port: 80
-        }
-      ],
-      UpstreamHost: null,
       Key: null,
       DelegatingHandlers: [],
       Priority: 0,
       Timeout: 0,
-      DangerousAcceptAnyServerCertificateValidator: false
+      SecurityOptions: {
+        IPAllowedList: [],
+        IPBlockedList: []
+      }
     }
     this.vm.editIndex = -1
     this.vm.showEdit = true
@@ -76,13 +102,8 @@ export default class extends Base {
   editSubmit () {
     this.vm.$refs.modelForm.validate(async (valid) => {
       if (valid) {
-        if (this.vm.editIndex === -1) {
-          this.vm.allModel.ReRoutes.push(this.vm.modelForm)
-        } else {
-          this.vm.allModel.ReRoutes.splice(this.vm.editIndex, 1, this.vm.modelForm)
-        }
         const op = { loadID: 'edit' }
-        const res = await api.SetApiGatewayConfiguration(this.vm.allModel, op)
+        const res = await api.SetApiGatewayReRoute(this.vm.modelForm, op)
         if (res) {
           this.vm.show = false
           this.vm.$emit('addSuccess')
