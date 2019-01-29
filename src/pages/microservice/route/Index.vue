@@ -62,6 +62,16 @@ export default {
           label: '下游地址'
         },
         {
+          prop: 'State',
+          label: '状态',
+          width: '80',
+          align: 'center',
+          type: '',
+          render: (row, column) => {
+            return row.State === 1 ? <el-tag>启用</el-tag> : <el-tag type="danger">禁用</el-tag>
+          }
+        },
+        {
           prop: 'DownstreamScheme',
           label: '下游Method',
           width: 100
