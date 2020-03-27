@@ -4,13 +4,13 @@ export default {
   // 查询服务列表
   QueryServiceList (param, op = {}) {
     var qs = require('qs')
-    return Vue.$api.xHttp.get(`/Platform/Microservice/QueryServiceList?` + qs.stringify(param), op)
+    return Vue.$api.xHttp.get(`/Microservice/QueryServiceList?` + qs.stringify(param), op)
   },
   SetServiceInfo (body, op = {}) {
-    return Vue.$api.xHttp.post(`/Platform/Microservice/SetServiceInfo`, body, op)
+    return Vue.$api.xHttp.post(`/Microservice/SetServiceInfo`, body, op)
   },
   DeleteService (body, op = {}) {
-    return Vue.$api.xHttp.post(`/Platform/Microservice/DeleteService`, body, op)
+    return Vue.$api.xHttp.post(`/Microservice/DeleteService`, body, op)
   },
   QueryTrace (param, op = {}) {
     var qs = require('qs')
@@ -33,24 +33,24 @@ export default {
     return Vue.$api.xHttp.get(`http://10.10.188.136:17071/SocketGroup/RemoveFromGroup` + param, op)
   },
   QueryGatewayList (op = {}) {
-    return Vue.$api.xHttp.get(`/Platform/Microservice/QueryApiGatewayConfiguration`, op)
+    return Vue.$api.xHttp.get(`/Microservice/QueryApiGatewayConfiguration`, op)
   },
   SetApiGatewayConfiguration (body, op = {}) {
-    return Vue.$api.xHttp.post(`/Platform/Microservice/SetApiGatewayConfiguration`, body, op)
+    return Vue.$api.xHttp.post(`/Microservice/SetApiGatewayConfiguration`, body, op)
   },
   QueryApiGatewayReRouteList (param, op = {}) {
     var qs = require('qs')
-    return Vue.$api.xHttp.get(`/Platform/Microservice/QueryApiGatewayReRouteList?` + qs.stringify(param), op)
+    return Vue.$api.xHttp.get(`/Microservice/QueryApiGatewayReRouteList?` + qs.stringify(param), op)
   },
   SetApiGatewayReRoute (body, op = {}) {
-    return Vue.$api.xHttp.post(`/Platform/Microservice/SetApiGatewayReRoute`, body, op)
+    return Vue.$api.xHttp.post(`/Microservice/SetApiGatewayReRoute`, body, op)
   },
   SyncApiGatewayConfigurationToConsul (param, op = {}) {
     var qs = require('qs')
-    return Vue.$api.xHttp.get(`/Platform/Microservice/SyncApiGatewayConfigurationToConsul?` + qs.stringify(param), op)
+    return Vue.$api.xHttp.get(`/Microservice/SyncApiGatewayConfigurationToConsul?` + qs.stringify(param), op)
   },
   SyncApiGatewayConfigurationToRedis (param, op = {}) {
     var qs = require('qs')
-    return Vue.$api.xHttp.get(`/Platform/Microservice/SyncApiGatewayConfigurationToRedis?` + qs.stringify(param), op)
+    return Vue.$api.xHttp.get(`/Microservice/SyncApiGatewayConfigurationToRedis?` + qs.stringify(param), op)
   }
 }

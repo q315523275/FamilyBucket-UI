@@ -4,26 +4,26 @@ import Vue from 'vue'
 export default {
   // 查询项目组
   QueryAppList (op = {}) {
-    return Vue.$api.xHttp.get(`/Platform/Config/QueryAppList`, op)
+    return Vue.$api.xHttp.get(`/Config/QueryAppList`, op)
   },
   SetAppInfo (body, op = {}) {
-    return Vue.$api.xHttp.post(`/Platform/Config/SetAppInfo`, body, op)
+    return Vue.$api.xHttp.post(`/Config/SetAppInfo`, body, op)
   },
   QueryProjectList (param, op = {}) {
     var qs = require('qs')
-    return Vue.$api.xHttp.get(`/Platform/Config/QueryAppProjectList?` + qs.stringify(param), op)
+    return Vue.$api.xHttp.get(`/Config/QueryAppProjectList?` + qs.stringify(param), op)
   },
   SetProjectInfo (body, op = {}) {
-    return Vue.$api.xHttp.post(`/Platform/Config/SetAppProjectInfo`, body, op)
+    return Vue.$api.xHttp.post(`/Config/SetAppProjectInfo`, body, op)
   },
   QueryConfigList (param, op = {}) {
     var qs = require('qs')
-    return Vue.$api.xHttp.get(`/Platform/Config/QueryAppConfigList?` + qs.stringify(param), op)
+    return Vue.$api.xHttp.get(`/Config/QueryAppConfigList?` + qs.stringify(param), op)
   },
   SetConfigInfo (body, op = {}) {
-    return Vue.$api.xHttp.post(`/Platform/Config/SetAppConfigInfo`, body, op)
+    return Vue.$api.xHttp.post(`/Config/SetAppConfigInfo`, body, op)
   },
   PublishCommand (body, op = {}) {
-    return Vue.$api.xHttp.post(`/Platform/Config/PublishCommand`, body, op)
+    return Vue.$api.xHttp.post(`/Config/PublishCommand`, body, op)
   }
 }

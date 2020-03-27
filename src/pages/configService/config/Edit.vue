@@ -19,7 +19,7 @@
         <el-input v-model="modelForm.ConfigKey"></el-input>
       </el-form-item>
       <el-form-item label="配置Value" prop="ConfigValue">
-        <el-input v-model="modelForm.ConfigValue"></el-input>
+        <el-input type="textarea" v-model="modelForm.ConfigValue"></el-input>
       </el-form-item>
       <el-form-item label="备注" prop="Comment">
         <el-input type="textarea" v-model="modelForm.Remark"></el-input>

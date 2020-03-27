@@ -12,10 +12,12 @@ export default class extends Base {
   }
 
   async searchProejct () {
-    const res = await api.QueryProjectList('AppId=' + this.vm.filters.AppId, {
+    const filter = this.vm.filters
+    const res = await api.QueryProjectList(filter, {
       load: false
     })
     if (res) {
+      this.vm.nameSpaceList = []
       res.Data.forEach(x => {
         this.vm.nameSpaceList.push({ Id: x.Id, Name: x.Name })
       })

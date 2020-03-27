@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/sameOriginApi': {
-        target: 'http://localhost:8090/',
+        target: 'http://localhost:18083/',
         changeOrigin: true,
         pathRewrite: {
           '^/sameOriginApi': ''
@@ -20,8 +20,8 @@ module.exports = {
       }
     },
     baseApi:{
-      'development': 'http://localhost:8090',
-      'production': 'http://localhost:8090'
+      'development': 'http://localhost:18083',
+      'production': 'http://localhost:18083'
     },
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST

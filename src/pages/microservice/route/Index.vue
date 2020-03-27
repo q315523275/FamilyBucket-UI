@@ -19,8 +19,8 @@
         <el-button type="primary" @click="BLL.add()">新增</el-button>
       </el-form-item>
     </el-form>
-    <iTable :tableData="dataList" :columns="columns" :loading="loading" :pageSize=200 ref="iTable"
-            :otherHeight="230" :operateColumn="operateColumn"></iTable>
+    <iTable :tableData="dataList" :columns="columns" :loading="loading" :pagination="pagination" ref="iTable"
+            :otherHeight="230" :operateColumn="operateColumn" @handleTableChange="handleTableChange"></iTable>
     <edit v-model="showEdit" :modelForm="editModel" :gatewayList="gatewayList" @addSuccess="BLL.search()"></edit>
   </div>
 </template>
@@ -131,6 +131,7 @@ export default {
           }
         ]
       }, // 操作列
+      currentIndex: 1,
       pagination: { size: 20 }
     }
   },
@@ -149,6 +150,10 @@ export default {
   },
   beforeDestroy () {},
   mounted () {},
-  methods: {}
+  methods: {
+    handleTableChange (pagination) {
+      this.BLL.handleTableChange(pagination)
+    }
+  }
 }
 </script>

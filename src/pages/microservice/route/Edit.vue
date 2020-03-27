@@ -32,6 +32,7 @@
                   <el-radio-button label="http"></el-radio-button>
                   <el-radio-button label="https"></el-radio-button>
                   <el-radio-button label="ws"></el-radio-button>
+                  <el-radio-button label="dotnetty"></el-radio-button>
                 </el-radio-group>
               </el-form-item>
             </el-col>
